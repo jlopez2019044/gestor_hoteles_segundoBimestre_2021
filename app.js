@@ -7,6 +7,7 @@ const cors = require("cors");
 
 //IMPORTACION DE RUTAS
 const usuario_ruta = require('./src/routes/usuario.rutas');
+const hotel_ruta = require('./src/routes/hotel.rutas');
 
 //MIDDLEWARES
 app.use(bodyParser.urlencoded({extended: false}));
@@ -17,6 +18,7 @@ app.use(cors());
 
 //CARGA DE RUTAS
 app.use('/api/usuarios',usuario_ruta);
+app.use('/api/hoteles/',hotel_ruta);
 
 //EXPORTAR
 module.exports = app;
