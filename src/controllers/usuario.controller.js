@@ -113,8 +113,119 @@ function login(req,res) {
 
 }
 
+function verUsuariosRegistrados(req,res){
+
+    if(req.user.rol== 'ROL_ADMIN_APP'){
+
+        Usuario.find({rol:'ROL_USUARIO'},(err,usuariosEncontrados)=>{
+            if(err) return res.status(500).send({mensaje: 'Error en la petición'})
+            if(!usuariosEncontrados) return res.status(500).send({mensaje: 'No hay usuarios Registrados'})
+    
+            return res.status(200).send({usuariosEncontrados});
+    
+        })
+
+    }else{
+
+        return res.status(200).send({mensaje: 'No posee los permisos necesarios para realizar la petición'})
+
+    }
+}
+
+function registrarAdminHotel(req,res) {
+
+    var usuarioModel = new Usuario();
+    var params = req.body;
+
+    if(req.user.rol == 'ROL_ADMIN_APP'){
+
+        if(params.usuario && params.password){
+
+            usuarioModel.usuario = params.usuario;
+            usuarioModel.password = params.password;
+            usuarioModel.rol = 'ROL_ADMIN_HOTEL';
+
+            Usuario.find({$or: [
+                {usuario: usuarioModel.usuario}
+            ]}).exec((err,usuariosEncontrados)=>{
+
+                if(usuariosEncontrados && usuariosEncontrados.length>=1){
+                    return res.status(500).send({mensaje: 'El usuario ya existe'});
+                }else{
+
+                    bcrypt.hash(usuarioModel.password,null,null,(err,passwordEncriptada)=>{
+                        usuarioModel.password = passwordEncriptada;
+                    })
+
+                    usuarioModel.save((err,usuarioGuardado)=>{
+                        if(err) return res.status(500).send({mensaje: 'Error al crear el usuario'});
+
+                        if(usuarioGuardado){
+                            return res.status(200).send({usuarioGuardado});
+                        }
+                    })
+
+                }
+
+            })
+
+        }else{
+            return res.status(500).send({mensaje: 'Necesita llenar los datos'})
+        }
+
+    }else{
+        return res.status(500).send({mensaje: 'No posee los permisos necesarios para hacer esta acción'})
+    }
+}
+
+function editarUsuario(req,res) {
+
+    var idUsuario = req.params.idUsuario;
+    var params = req.body;
+
+    delete params.password;
+    delete params.rol;
+    
+    if(idUsuario == req.user.sub || req.user.rol == 'ROL_ADMIN_APP'){
+      
+        Usuario.findByIdAndUpdate(idUsuario,params,{new: true, useFindAndModify: false},(err, usuarioActualizado)=>{
+            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+            if(!usuarioActualizado) return res.status(500).send({mensaje: 'El usuario no está registrado'});
+
+            return res.status(200).send({usuarioActualizado});
+
+        })
+
+    }else{
+        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'})
+    }
+    
+}
+
+function eliminarUsuario(req,res) {
+    
+    var idUsuario = req.params.idUsuario;
+
+    if(idUsuario == req.user.sub || req.user.rol == 'ROL_ADMIN_APP'){
+
+        Usuario.findByIdAndDelete(idUsuario,(err,usuarioEliminado)=>{
+            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+            if(!usuarioEliminado) return res.status(500).send({mensaje: 'Error al eliminar el usuario'});
+            return res.status(200).send({usuarioEliminado});
+        })
+
+    }else{
+        return res.status(200).send({mensaje: 'No posee los permisos necesarios para hacer esta acción'})
+    }
+
+}
+
 module.exports = {
     usuarioDefault,
     registrarUsuario,
-    login
+    login,
+    verUsuariosRegistrados,
+    registrarAdminHotel,
+    editarUsuario,
+    eliminarUsuario
 }
