@@ -2,6 +2,7 @@
 
 const Usuario = require('../models/usuarios.model');
 const bcrypt = require("bcrypt-nodejs");
+const jwt = require("../services/jwt")
 
 //USUARIO PREDETERMINADO
 function usuarioDefault(req,res){
@@ -79,6 +80,41 @@ function registrarUsuario(req,res) {
     
 }
 
+function login(req,res) {
+
+    var params = req.body;
+
+    Usuario.findOne({usuario: params.usuario},(err,usuarioEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+
+        if(usuarioEncontrado){
+            bcrypt.compare(params.password,usuarioEncontrado.password,(err,passCorrecta)=>{
+
+                if(passCorrecta){
+
+                    if(params.obtenerToken ==='true'){
+
+                        return res.status(200).send({
+                            token: jwt.createToken(usuarioEncontrado)
+                        })
+
+                    }
+
+                }else{
+                    return res.status(500).send({mensaje: 'El usuario no se ha podido identificar'})
+                }
+
+            })
+        }else{
+            return res.status(500).send({mensaje: 'El usuario no se ha podido identificar'})
+        }
+
+    })
+
+}
+
 module.exports = {
-    usuarioDefault
+    usuarioDefault,
+    registrarUsuario,
+    login
 }
