@@ -10,9 +10,9 @@ function registrarHotel(req,res){
     var params = req.body;
     let hotelModel = new Hotel();
 
-    if(req.user.rol == 'ROL_ADMIN_APP'){
+    if(req.user.rol == 'ROL_ADMIN_APP' || req.user.rol == 'ROL_ADMIN_HOTEL'){
         
-        if(params.nombre && params.direccion && params.idAdminHotel){
+        if(params.nombre && params.direccion && params.idAdminsHotel){
 
             Hotel.find({$or: [
                 {nombre: hotelModel.nombre},
@@ -23,17 +23,14 @@ function registrarHotel(req,res){
                     return res.status(500).send({mensaje: 'El hotel ya existe'});
                 }else{
 
-                    Usuario.findById(params.idAdminHotel,(err,usuarioEncontrado)=>{
+                    Usuario.findById(params.idAdminsHotel,(err,usuarioEncontrado)=>{
 
-                        Hotel.findOne({idAdminHotel: params.idAdminHotel},(err,hotelesHayados)=>{
-
-                            if(hotelesHayados) return res.status(500).send({mensaje: 'Ya existe un hotel con ese Administrador registrado'})
-                            if(usuarioEncontrado.rol === 'ROL_ADMIN_APP' || usuarioEncontrado.rol === 'ROL_USUARIO') return res.status(500).send({mensaje: 'El usuario seleccionado no posee los permisos para ser administrador de Hotel'});
+                            if(usuarioEncontrado.rol === 'ROL_USUARIO') return res.status(500).send({mensaje: 'El usuario seleccionado no posee los permisos para ser administrador de Hotel'});
                             if(!usuarioEncontrado) return res.status(500).send({mensaje: 'El usuario no existe'});  
 
                             hotelModel.nombre = params.nombre;
                             hotelModel.direccion = params.direccion;
-                            hotelModel.idAdminHotel = params.idAdminHotel;
+                            hotelModel.idAdminsHotel = params.idAdminsHotel;
 
                             hotelModel.save((err,hotelGuardado)=>{
                                 if(err) return res.status(500).send({mensaje: 'Error al guardar el hotel'});
@@ -42,9 +39,6 @@ function registrarHotel(req,res){
                                     return res.status(200).send({hotelGuardado});
                                 }
                             })
-
-                        })
-    
 
                     })
                 }
@@ -61,6 +55,50 @@ function registrarHotel(req,res){
 
 }
 
+function mostrarHoteles(req,res) {
+
+    Hotel.find((err,hotelesEncontrados)=>{
+
+        if(err) return res.status(500).send({mensaje: 'Error al hacer la peticion'});
+        if(!hotelesEncontrados) return res.status(500).send({mensaje: 'Error al buscar los hoteles'})
+
+        return res.status(200).send({hotelesEncontrados});
+    })
+    
+}
+
+function buscarHotelNombre(req,res) {
+    
+    var params = req.body;
+
+    Hotel.findOne({nombre: params.nombre},(err,hotelEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!hotelEncontrado) return res.status(500).send({mensaje: 'El hotel no se ha encontrado'});
+
+        return res.status(200).send({hotelEncontrado});
+
+    })
+
+}
+
+function buscarHotelDireccion(req,res) {
+
+    var params = req.body;
+
+    Hotel.findOne({direccion: params.direccion},(err,hotelEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!hotelEncontrado) return res.status(500).send({mensaje: 'El hotel no se ha encontrado'});
+
+        return res.status(200).send({hotelEncontrado});
+
+    })
+
+    
+}
+
 module.exports={
-    registrarHotel
+    registrarHotel,
+    mostrarHoteles,
+    buscarHotelNombre,
+    buscarHotelDireccion
 }
