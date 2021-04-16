@@ -9,6 +9,7 @@ const cors = require("cors");
 const usuario_ruta = require('./src/routes/usuario.rutas');
 const hotel_ruta = require('./src/routes/hotel.rutas');
 const tipoEvento_ruta = require('./src/routes/tipoEvento.rutas');
+const evento_ruta = require('./src/routes/eventos.rutas');
 
 //MIDDLEWARES
 app.use(bodyParser.urlencoded({extended: false}));
@@ -21,6 +22,7 @@ app.use(cors());
 app.use('/api/usuarios',usuario_ruta);
 app.use('/api/hoteles',hotel_ruta);
 app.use('/api/tipoEventos',tipoEvento_ruta);
+app.use('/api/eventos',evento_ruta);
 
 //EXPORTAR
 module.exports = app;
