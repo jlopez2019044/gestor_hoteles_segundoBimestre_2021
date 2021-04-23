@@ -10,7 +10,7 @@ function registrarServicio(req,res) {
 
     let servicioModel = new Servicio();
 
-    if(req.user.rol == 'ROL_ADMIN_APP'){
+    if(req.user.rol == 'ROL_ADMIN_HOTEL'){
 
         if(params.nombre && params.subtotal && params.idHotel){
 
@@ -20,7 +20,6 @@ function registrarServicio(req,res) {
 
             Servicio.find({$or: [
                 {nombre: servicioModel.nombre},
-                {servicioModel.idHotel = params.idHotel}
             ]}).exec((err,serviciosEncontrados)=>{
                 if(serviciosEncontrados && serviciosEncontrados.length>=1){
                     return res.status(500).send({mensaje: 'El servicio ya existe'})
@@ -35,7 +34,7 @@ function registrarServicio(req,res) {
                             if(err) return res.status(500).send({mensaje: 'Error en la petición'});
 
                             if(servicioGuardado){
-                                return res.status(500).send({servicioGuardado});
+                                return res.status(200).send({servicioGuardado});
                             }
 
                         })
@@ -60,16 +59,18 @@ function editarServicio(req,res) {
     var params = req.body;
     var idServicio = req.params.idServicio;
 
-    if(req.user.rol == 'ROL_ADMIN_APP'){
-        Servicio.findByIdAndUpdate(idServicio,params,{new: true, useFindAndModify: false},(err,ServicioActualizado)=>{
-
-            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
-            if(!ServicioActualizado) return res.status(500).send({mensaje: 'Error al actualizar el Servicio'});
-
-            return res.status(200).send({ServicioActualizado});
-
-        })
-    }
+        if(req.user.rol == 'ROL_ADMIN_HOTEL'){
+            Servicio.findByIdAndUpdate(idServicio,params,{new: true, useFindAndModify: false},(err,ServicioActualizado)=>{
+    
+                if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+                if(!ServicioActualizado) return res.status(500).send({mensaje: 'Error al actualizar el Servicio'});
+    
+                return res.status(200).send({ServicioActualizado});
+    
+            })
+        }else{
+            return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'})
+        }
 
 }
 
@@ -77,20 +78,20 @@ function eliminarServicio(req,res) {
     
     var idServicio = req.params.idServicio;
 
-    if(req.user.rol == 'ROL_ADMIN_APP'){
+        if(req.user.rol == 'ROL_ADMIN_HOTEL'){
 
-        Servicio.findByIdAndDelete(idServicio,(err,servicioEliminado)=>{
-
-            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
-            if(!servicioEliminado) return res.status(200).send({mensaje: 'Error al eliminar el servicio'});
-
-            return res.status(200).send({servicioEliminado});
-
-        })
-
-    }else{
-        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
-    }
+            Servicio.findByIdAndDelete(idServicio,(err,servicioEliminado)=>{
+    
+                if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+                if(!servicioEliminado) return res.status(200).send({mensaje: 'Error al eliminar el servicio'});
+    
+                return res.status(200).send({servicioEliminado});
+    
+            })
+    
+        }else{
+            return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
+        }
 
 }
 
@@ -107,9 +108,25 @@ function visualizarServicios(req,res) {
 
 }
 
+function visualizarServiciosHotel(req,res) {
+
+    var hotelID = req.params.idHotel;
+
+    Servicio.find({idHotel: hotelID},(err,serviciosEncontrados)=>{
+
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!serviciosEncontrados) return res.status(500).send({mensaje: 'Error al visualizar los servicios del hotel'});
+
+        return res.status(200).send({serviciosEncontrados});
+
+    })
+    
+}
+
 module.exports ={
     registrarServicio,
     editarServicio,
     eliminarServicio,
-    visualizarServicios
+    visualizarServicios,
+    visualizarServiciosHotel
 }

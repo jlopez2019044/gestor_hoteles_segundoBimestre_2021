@@ -12,5 +12,6 @@ api.post('/registrarHotel',md_autenticacion.ensureAuth,hotelControlador.registra
 api.get('/mostrarHoteles',md_autenticacion.ensureAuth,hotelControlador.mostrarHoteles);
 api.post('/buscarHotelNombre',md_autenticacion.ensureAuth,hotelControlador.buscarHotelNombre);
 api.post('/buscarHotelDireccion',md_autenticacion.ensureAuth,hotelControlador.buscarHotelDireccion);
+api.get('/mostrarHotelesAdmin',md_autenticacion.ensureAuth,hotelControlador.mostrarHotelesAdmin);
 
 module.exports = api;

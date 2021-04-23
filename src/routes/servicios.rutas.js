@@ -13,6 +13,6 @@ api.post('/registrarServicio',md_autenticacion.ensureAuth,servicioControlador.re
 api.put('/editarServicio/:idServicio',md_autenticacion.ensureAuth,servicioControlador.editarServicio);
 api.delete('/eliminarServicio/:idServicio',md_autenticacion.ensureAuth,servicioControlador.eliminarServicio);
 api.get('/visualizarServicios',md_autenticacion.ensureAuth,servicioControlador.visualizarServicios);
-
+api.get('/visualizarServiciosHotel/:idHotel',md_autenticacion.ensureAuth,servicioControlador.visualizarServiciosHotel);
 
 module.exports = api;
