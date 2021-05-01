@@ -98,6 +98,8 @@ function login(req,res) {
                             token: jwt.createToken(usuarioEncontrado)
                         })
 
+                    }else{
+                        return res.status(200).send({usuarioEncontrado})
                     }
 
                 }else{
@@ -115,21 +117,24 @@ function login(req,res) {
 
 function verUsuariosRegistrados(req,res){
 
-    if(req.user.rol== 'ROL_ADMIN_APP'){
-
-        Usuario.find({rol:'ROL_USUARIO'},(err,usuariosEncontrados)=>{
+        Usuario.find((err,usuariosEncontrados)=>{
             if(err) return res.status(500).send({mensaje: 'Error en la petición'})
             if(!usuariosEncontrados) return res.status(500).send({mensaje: 'No hay usuarios Registrados'})
     
             return res.status(200).send({usuariosEncontrados});
     
         })
+}
+function verUsuarioId(req,res){
 
-    }else{
+    var idUsuario = req.params.idUsuario
 
-        return res.status(200).send({mensaje: 'No posee los permisos necesarios para realizar la petición'})
+    Usuario.findById(idUsuario,(err,usuarioEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!usuarioEncontrado) return res.status(500).send({mensaje: 'Error al encontrar el usuario'});
 
-    }
+        return res.status(200).send({usuarioEncontrado})
+    })
 }
 
 function registrarAdminHotel(req,res) {
@@ -227,5 +232,6 @@ module.exports = {
     verUsuariosRegistrados,
     registrarAdminHotel,
     editarUsuario,
-    eliminarUsuario
+    eliminarUsuario,
+    verUsuarioId
 }

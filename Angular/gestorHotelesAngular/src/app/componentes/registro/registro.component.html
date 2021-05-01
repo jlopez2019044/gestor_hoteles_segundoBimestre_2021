@@ -1,0 +1,63 @@
+<body class>
+    <div class="lg:flex">
+        <div class="lg:w-1/2 xl:max-w-screen-sm">
+            <div class="pt-2 pb-4 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
+                <div class="cursor-pointer flex items-center">
+                    <div class="text-2xl text-indigo-800 tracking-wide ml-2 font-semibold">EZHOTEL</div>
+                </div>
+            </div>
+            <div class=" px-12 sm:px-24 md:px-48 lg:px-12 xl:px-24 xl:max-w-2xl">
+                <h2 class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl
+                xl:text-bold">Regístrate</h2>
+                <div class="mt-12">
+                    <form>
+                        <div>
+                            <div class="text-sm font-bold text-gray-700 tracking-wide">Nombre</div>
+                            <input class="w-full text-lg pt-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="text" name="nombre" id="inputNombre"  #nombre="ngModel" [(ngModel)]="user.nombre" placeholder="Ingresa tu Nombre">
+                        </div>
+                        <div class="mt-8">
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm font-bold text-gray-700 tracking-wide">
+                                    Apellido
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            <input class="w-full text-lg pt-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="" name="apellido" id="inputApellido" #apellido="ngModel" [(ngModel)]="user.apellido" placeholder="Ingresa tu Apellido">
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-gray-700 tracking-wide pt-4">Usuario</div>
+                            <input class="w-full text-lg pt-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="text" name="usuario" id="inputUsuario" #usuario="ngModel" [(ngModel)]="user.usuario" placeholder="Ingresa tu usuario">
+                        </div>
+                        <div class="mt-8">
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm font-bold text-gray-700 tracking-wide">
+                                    Contraseña
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" name="password" id="inputPassword" #password="ngModel" [(ngModel)]="user.password" placeholder="Ingresa tu contraseña">
+                        </div>
+                        <div class="mt-10">
+                            <button class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+                            font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
+                            shadow-lg" type="submit" (click)="registrar()">
+                               Regístrate
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+                        ¿Ya tenías una cuenta? <a class="cursor-pointer text-indigo-600 hover:text-indigo-800" routerLink="/login">Inicia Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hidden lg:flex items-center justify-center bg-indigo-100 flex-1 h-screen">
+            <div class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer">
+                <img src="https://images.vexels.com/media/users/3/141295/isolated/preview/87749bc5d3fb7ddf5347e625e0a5bf17-support-agents-round-icon-by-vexels.png">
+            </div>
+        </div>
+    </div>
+        
+</body>
