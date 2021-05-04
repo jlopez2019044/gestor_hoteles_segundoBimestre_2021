@@ -46,6 +46,13 @@ export class UsuarioService {
 
   }
 
+  eliminarUsuario(id:String):Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization',this.getToken())
+
+    return this._http.delete(this.url+'/usuarios/eliminarUsuario/'+id,{headers: headersToken});
+
+  }
+
   login(usuario,obtenerToken=null): Observable<any>{
 
     if(obtenerToken != null){
