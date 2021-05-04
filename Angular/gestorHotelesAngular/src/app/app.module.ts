@@ -10,6 +10,10 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 import { HotelesComponent } from './componentes/hoteles/hoteles.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { RegistrarAdminHotelComponent } from './componentes/registrar-admin-hotel/registrar-admin-hotel.component';
+import { TusHotelesComponent } from './componentes/tus-hoteles/tus-hoteles.component';
+import { TusReservacionesComponent } from './componentes/tus-reservaciones/tus-reservaciones.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { HotelesComponent } from './componentes/hoteles/hoteles.component';
     NavbarComponent,
     RegistroComponent,
     UsuariosComponent,
-    HotelesComponent
+    HotelesComponent,
+    PerfilComponent,
+    RegistrarAdminHotelComponent,
+    TusHotelesComponent,
+    TusReservacionesComponent
   ],
   imports: [
     BrowserModule,

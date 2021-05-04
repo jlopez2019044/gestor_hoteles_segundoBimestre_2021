@@ -1,1 +1,42 @@
-<p>usuarios works!</p>
+<app-navbar></app-navbar>
+<button class="rounded-lg bg-blue-500 hover:bg-blue-600 text-white p-2 mx-10 my-4" routerLink="/registrarAdminHotel">Crear Administrador Hotel</button>
+<div class="table w-full p-2">
+    <table class="w-full border">
+        <thead>
+            <tr class="bg-gray-50 border-b">
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    ID
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Nombre
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Apellido
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Usuario
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Rol
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-gray-100 text-center border-b text-sm text-gray-600" *ngFor="let usua of usuarios">
+                <td class="p-2 border-r">{{usua._id}}</td>
+                <td class="p-2 border-r">{{usua.nombre}}</td>
+                <td class="p-2 border-r">{{usua.apellido}}</td>
+                <td class="p-2 border-r">{{usua.usuario}}</td>
+                <td class="p-2 border-r">{{usua.rol}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

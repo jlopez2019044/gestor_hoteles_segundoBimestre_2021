@@ -147,8 +147,10 @@ function registrarAdminHotel(req,res) {
         if(params.usuario && params.password){
 
             usuarioModel.usuario = params.usuario;
+            usuarioModel.usuario = params.usuario;
             usuarioModel.password = params.password;
             usuarioModel.rol = 'ROL_ADMIN_HOTEL';
+            usuarioModel.apellido = params.apellido;
 
             Usuario.find({$or: [
                 {usuario: usuarioModel.usuario}
@@ -185,25 +187,19 @@ function registrarAdminHotel(req,res) {
 
 function editarUsuario(req,res) {
 
-    var idUsuario = req.params.idUsuario;
+    var idUsuario = req.user.sub;
     var params = req.body;
 
     delete params.password;
     delete params.rol;
-    
-    if(idUsuario == req.user.sub || req.user.rol == 'ROL_ADMIN_APP'){
       
         Usuario.findByIdAndUpdate(idUsuario,params,{new: true, useFindAndModify: false},(err, usuarioActualizado)=>{
-            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+            if(err) return res.status(500).send({mensaje: 'Error en la petición',err});
             if(!usuarioActualizado) return res.status(500).send({mensaje: 'El usuario no está registrado'});
 
             return res.status(200).send({usuarioActualizado});
 
         })
-
-    }else{
-        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'})
-    }
     
 }
 

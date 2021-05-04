@@ -12,7 +12,7 @@ api.post('/registrarse',usuarioControlador.registrarUsuario);
 api.post('/login',usuarioControlador.login);
 api.get('/verUsuariosRegistrados',usuarioControlador.verUsuariosRegistrados);
 api.post('/registrarAdminHotel',md_autenticacion.ensureAuth,usuarioControlador.registrarAdminHotel);
-api.put('/editarUsuario/:idUsuario',md_autenticacion.ensureAuth,usuarioControlador.editarUsuario);
+api.put('/editarUsuario',md_autenticacion.ensureAuth,usuarioControlador.editarUsuario);
 api.delete('/eliminarUsuario/:idUsuario',md_autenticacion.ensureAuth,usuarioControlador.eliminarUsuario);
 api.get('/verUsuarioId/:idUsuario',usuarioControlador.verUsuarioId);
 

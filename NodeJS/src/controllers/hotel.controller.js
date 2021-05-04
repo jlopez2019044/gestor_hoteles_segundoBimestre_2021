@@ -4,7 +4,6 @@ const Hotel = require('../models/hoteles.model');
 const Usuario = require('../models/usuarios.model');
 const bcrypt = require("bcrypt-nodejs")
 const jwt = require("../services/jwt");
-const { response } = require('express');
 
 function registrarHotel(req,res){
 
@@ -55,6 +54,29 @@ function registrarHotel(req,res){
     }
 
 }
+
+function editarHotel(req,res) {
+    var idHotel = req.params.idHotel;
+    var params = req.body;
+
+    Hotel.findById(idHotel,(err,hotelEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        
+        if(req.user.sub == hotelEncontrado.idAdminsHotel){
+            
+            Hotel.findByIdAndUpdate(idHotel,params,{new: true},(err,hotelActualizado)=>{
+                if(err) return res.status(500).send({mensaje: 'Error en la petición de Hotel'});
+                if(!hotelActualizado) return res.status(500).send({mensaje: 'Error al actualizar el hotel'});
+                return res.status(200).send({hotelActualizado});
+            })
+        
+        }else{
+            return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'})
+        }
+
+    })
+}
+
 
 function mostrarHoteles(req,res) {
 
@@ -121,5 +143,6 @@ module.exports={
     mostrarHoteles,
     buscarHotelNombre,
     buscarHotelDireccion,
-    mostrarHotelesAdmin
+    mostrarHotelesAdmin,
+    editarHotel
 }
