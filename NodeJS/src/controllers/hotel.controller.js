@@ -10,7 +10,7 @@ function registrarHotel(req,res){
     var params = req.body;
     let hotelModel = new Hotel();
 
-    if(req.user.rol == 'ROL_ADMIN_APP' || req.user.rol == 'ROL_ADMIN_HOTEL'){
+    if(req.user.rol == 'ROL_ADMIN_APP'){
         
         if(params.nombre && params.direccion && params.idAdminsHotel){
 
@@ -77,6 +77,52 @@ function editarHotel(req,res) {
     })
 }
 
+function agregarHabitacion(req,res) {
+    var idHabitacion = req.params.idHabitacion;
+    var params = req.body;
+
+    if(req.user.rol == 'ROL_ADMIN_APP' || req.user.rol =='ROL_ADMIN_HOTEL'){
+
+        Hotel.findOneAndUpdate(idHabitacion,{$push: {habitaciones:{no_habitacion: params.idHabitacion, descripcion: params.descripcion, precio: params.precio}}},
+            {new: true}, (err,habitacionAgregada)=>{
+    
+                if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones'});
+                if(!habitacionAgregada) return res.status(500).send({mensaje: 'Error al agregar la habitación del hotel'});
+                return res.status(500).send({habitacionAgregada});
+    
+            })
+
+    }else{
+        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'})
+    }
+
+}
+
+function editarHabitacion(req,res) {
+
+    var hotelId = req.params.idHotel;
+    var habitacionId = req.params.idHabitacion;
+    var params = req.body;
+
+    if(req.user.rol == 'ROL_ADMIN_APP' || req.user.rol =='ROL_ADMIN_HOTEL'){
+
+        Hotel.findByIdAndUpdate({_id: hotelId, "habitaciones._id": habitacionId},
+        {"habitaciones.$.nombre": params.nombre, "habitaciones.$.descripcion": params.descripcion, "habitaciones.$.precio": params.precio},
+        {new: true, useFindAndModify: false}, (err,habitacionEditada)=>{
+    
+            if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones'});
+            if(!habitacionEditada) return res.status(500).send({mensaje: 'Error al editar la habitacion'});
+    
+            return res.status(500).send({habitacionEditada});
+    
+        })
+
+    }else{
+        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
+    }
+
+}
+
 
 function mostrarHoteles(req,res) {
 
@@ -87,35 +133,6 @@ function mostrarHoteles(req,res) {
 
         return res.status(200).send({hotelesEncontrados});
     })
-    
-}
-
-function buscarHotelNombre(req,res) {
-    
-    var params = req.body;
-
-    Hotel.findOne({nombre: params.nombre},(err,hotelEncontrado)=>{
-        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
-        if(!hotelEncontrado) return res.status(500).send({mensaje: 'El hotel no se ha encontrado'});
-
-        return res.status(200).send({hotelEncontrado});
-
-    })
-
-}
-
-function buscarHotelDireccion(req,res) {
-
-    var params = req.body;
-
-    Hotel.findOne({direccion: params.direccion},(err,hotelEncontrado)=>{
-        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
-        if(!hotelEncontrado) return res.status(500).send({mensaje: 'El hotel no se ha encontrado'});
-
-        return res.status(200).send({hotelEncontrado});
-
-    })
-
     
 }
 
@@ -141,8 +158,8 @@ function mostrarHotelesAdmin(req,res) {
 module.exports={
     registrarHotel,
     mostrarHoteles,
-    buscarHotelNombre,
-    buscarHotelDireccion,
+    agregarHabitacion,
     mostrarHotelesAdmin,
+    editarHabitacion,
     editarHotel
 }

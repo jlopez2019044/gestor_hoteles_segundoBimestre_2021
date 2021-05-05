@@ -11,7 +11,6 @@ const hotel_ruta = require('./src/routes/hotel.rutas');
 const tipoEvento_ruta = require('./src/routes/tipoEvento.rutas');
 const evento_ruta = require('./src/routes/eventos.rutas');
 const servicio_ruta = require('./src/routes/servicios.rutas');
-const habitacion_ruta = require('./src/routes/habitaciones.rutas');
 const reservacion_ruta = require('./src/routes/reservaciones.rutas');
 
 //MIDDLEWARES
@@ -27,7 +26,6 @@ app.use('/api/hoteles',hotel_ruta);
 app.use('/api/tipoEventos',tipoEvento_ruta);
 app.use('/api/eventos',evento_ruta);
 app.use('/api/servicios',servicio_ruta);
-app.use('/api/habitaciones',habitacion_ruta);
 app.use('/api/reservaciones',reservacion_ruta);
 
 //EXPORTAR

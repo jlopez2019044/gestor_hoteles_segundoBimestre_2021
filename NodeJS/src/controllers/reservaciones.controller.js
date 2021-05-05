@@ -1,6 +1,5 @@
 'use strict'
 
-const Habitacion = require('../models/habitaciones.model');
 const Hotel = require('../models/hoteles.model');
 const Reservacion = require('../models/reservaciones.model');
 const jwt = require('../services/jwt');

@@ -7,6 +7,11 @@ var HotelSchema = Schema({
     nombre: String,
     direccion: String,
     popularidad: {type: Number, default: 0},
+    habitaciones:[{
+        no_habitacion: {type: Number},
+        descripcion: String,
+        precio: {type: Number, default:0}
+    }],
     idAdminsHotel: {type: Schema.Types.ObjectId, ref: 'usuarios'}
 })
 
