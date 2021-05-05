@@ -30,6 +30,7 @@ function registrarHotel(req,res){
 
                             hotelModel.nombre = params.nombre;
                             hotelModel.direccion = params.direccion;
+                            hotelModel.descripcion = params.descripcion;
                             hotelModel.idAdminsHotel = params.idAdminsHotel;
 
                             hotelModel.save((err,hotelGuardado)=>{
