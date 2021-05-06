@@ -14,6 +14,9 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { RegistrarAdminHotelComponent } from './componentes/registrar-admin-hotel/registrar-admin-hotel.component';
 import { TusHotelesComponent } from './componentes/tus-hoteles/tus-hoteles.component';
 import { TusReservacionesComponent } from './componentes/tus-reservaciones/tus-reservaciones.component';
+import { AgregarHotelComponent } from './componentes/agregar-hotel/agregar-hotel.component';
+import { ServiciosHotelComponent } from './componentes/servicios-hotel/servicios-hotel.component';
+import { EventosComponent } from './componentes/eventos/eventos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { TusReservacionesComponent } from './componentes/tus-reservaciones/tus-r
     PerfilComponent,
     RegistrarAdminHotelComponent,
     TusHotelesComponent,
-    TusReservacionesComponent
+    TusReservacionesComponent,
+    AgregarHotelComponent,
+    ServiciosHotelComponent,
+    EventosComponent
   ],
   imports: [
     BrowserModule,

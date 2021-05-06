@@ -46,6 +46,11 @@ export class UsuarioService {
 
   }
 
+  verUsuariosAdmin(): Observable<any>{
+    let headersToken = this.headersVariable.set('Authorization',this.getToken())
+    return this._http.get(this.url+'/usuarios/verUsuariosAdmin',{headers: headersToken})
+  }
+
   eliminarUsuario(id:String):Observable<any> {
     let headersToken = this.headersVariable.set('Authorization',this.getToken())
 

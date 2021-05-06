@@ -6,7 +6,8 @@ import { Hotel } from '../models/hotel.model';
 @Component({
   selector: 'app-hoteles',
   templateUrl: './hoteles.component.html',
-  styleUrls: ['./hoteles.component.scss']
+  styleUrls: ['./hoteles.component.scss'],
+  providers: [HotelesService, UsuarioService]
 })
 export class HotelesComponent implements OnInit {
 
@@ -49,5 +50,5 @@ export class HotelesComponent implements OnInit {
       }
     )
   }
-
 }
+

@@ -26,6 +26,15 @@ export class HotelesService {
     return this._http.get(this.url+'/hoteles/mostrarHoteles',{headers: headersToken});
   }
 
+  public registrarHotel(hotel: Hotel){
+
+    let params = JSON.stringify(hotel);
+    let headersToken = this.headersVariable.set('Authorization',this.getToken())
+
+    return this._http.post(this.url+'/hoteles/registrarHotel',params,{headers: headersToken});
+
+  }
+
   getToken(){
     var token2 = localStorage.getItem('token');
     if(token2 != 'undefined'){

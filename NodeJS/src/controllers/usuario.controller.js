@@ -125,6 +125,18 @@ function verUsuariosRegistrados(req,res){
     
         })
 }
+
+function verUsuariosAdmin(req,res) {
+
+    Usuario.find({rol: 'ROL_ADMIN_HOTEL'},(err,usuariosEncontrados)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!usuariosEncontrados) return res.status(500).send({mensaje: 'No hay usuarios registrados'});
+
+        return res.status(200).send({usuariosEncontrados});
+    })
+    
+}
+
 function verUsuarioId(req,res){
 
     var idUsuario = req.params.idUsuario
@@ -229,5 +241,6 @@ module.exports = {
     registrarAdminHotel,
     editarUsuario,
     eliminarUsuario,
-    verUsuarioId
+    verUsuarioId,
+    verUsuariosAdmin
 }

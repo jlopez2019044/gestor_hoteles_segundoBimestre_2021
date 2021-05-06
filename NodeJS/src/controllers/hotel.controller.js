@@ -34,7 +34,7 @@ function registrarHotel(req,res){
                             hotelModel.idAdminsHotel = params.idAdminsHotel;
 
                             hotelModel.save((err,hotelGuardado)=>{
-                                if(err) return res.status(500).send({mensaje: 'Error al guardar el hotel'});
+                                if(err) return res.status(500).send({mensaje: 'Error al guardar el hotel', err});
                         
                                 if(hotelGuardado){
                                     return res.status(200).send({hotelGuardado});

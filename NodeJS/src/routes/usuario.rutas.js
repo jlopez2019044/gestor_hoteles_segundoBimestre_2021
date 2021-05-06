@@ -15,5 +15,6 @@ api.post('/registrarAdminHotel',md_autenticacion.ensureAuth,usuarioControlador.r
 api.put('/editarUsuario',md_autenticacion.ensureAuth,usuarioControlador.editarUsuario);
 api.delete('/eliminarUsuario/:idUsuario',md_autenticacion.ensureAuth,usuarioControlador.eliminarUsuario);
 api.get('/verUsuarioId/:idUsuario',usuarioControlador.verUsuarioId);
+api.get('/verUsuariosAdmin',md_autenticacion.ensureAuth,usuarioControlador.verUsuariosAdmin);
 
 module.exports = api;
