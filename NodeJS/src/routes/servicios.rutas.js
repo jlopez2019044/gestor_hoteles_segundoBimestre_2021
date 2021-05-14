@@ -9,7 +9,7 @@ var md_autenticacion = require('../middlewares/authenticated');
 
 var api = express.Router();
 
-api.post('/registrarServicio',md_autenticacion.ensureAuth,servicioControlador.registrarServicio);
+api.post('/registrarServicio/:idHotel',md_autenticacion.ensureAuth,servicioControlador.registrarServicio);
 api.put('/editarServicio/:idServicio',md_autenticacion.ensureAuth,servicioControlador.editarServicio);
 api.delete('/eliminarServicio/:idServicio',md_autenticacion.ensureAuth,servicioControlador.eliminarServicio);
 api.get('/visualizarServicios',md_autenticacion.ensureAuth,servicioControlador.visualizarServicios);

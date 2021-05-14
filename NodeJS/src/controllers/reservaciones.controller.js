@@ -4,7 +4,7 @@ const Hotel = require('../models/hoteles.model');
 const Reservacion = require('../models/reservaciones.model');
 const jwt = require('../services/jwt');
 
-function registrarReservacion(req,res) {
+/*function registrarReservacion(req,res) {
     
     var params = req.body;
 
@@ -34,6 +34,58 @@ function registrarReservacion(req,res) {
 
     }else{
         return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
+    }
+
+}*/
+
+function registrarReservacion(req,res) {
+    var params = req.body;
+
+    let reservacionModel = new Reservacion();
+    let e=0;
+    if(req.user.rol == 'ROL_USUARIO'){
+
+        if(params.fecha_llegada && params.fecha_salida){
+            
+            reservacionModel.idUsuario = req.user.sub;
+            reservacionModel.fecha_llegada = params.fecha_llegada;
+            reservacionModel.fecha_salida = params.fecha_salida;
+            reservacionModel.idHabitacion = params.idHabitacion;
+
+            Reservacion.find((err,reservacionesEncontradas)=>{
+                for (let i = 0; i < reservacionesEncontradas.length; i++) {
+                    
+                    if(reservacionModel.fecha_llegada>=reservacionesEncontradas[i].fecha_llegada && reservacionModel.fecha_salida<=reservacionesEncontradas[i].fecha_salida && reservacionesEncontradas[i].idHabitacion == params.idHabitacion){
+
+                        e++;
+
+                    }else{
+
+                        reservacionModel.save((err,reservacionGuardada)=>{
+
+                            if(reservacionGuardada){
+                                return res.status(200).send({reservacionGuardada});
+                            }
+
+                        })
+
+                    }
+                    
+                }
+
+                if(e===reservacionesEncontradas.length){
+                    return res.status(500).send({mensaje: 'Ya existe una reservacion con esa fecha'})
+                }
+            })
+
+        }else{
+            return res.status(500).send({mensaje: 'Debe llenar todos los datos'});
+        }
+
+    }else{
+
+        return res.status(500).send({mensaje: 'No es un cliente para poder realizar esta acción'});
+    
     }
 
 }
@@ -91,5 +143,6 @@ function visualizarReservacionesHotel(req,res) {
 module.exports = {
     registrarReservacion,
     editarReservacion,
-    eliminarReservacion
+    eliminarReservacion,
+    registrarReservacion
 }

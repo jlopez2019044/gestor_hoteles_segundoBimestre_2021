@@ -26,12 +26,27 @@ export class HotelesService {
     return this._http.get(this.url+'/hoteles/mostrarHoteles',{headers: headersToken});
   }
 
-  public registrarHotel(hotel: Hotel){
+  mostrarHotelesAdmin(token): Observable<any>{
+    
+    let headersToken = this.headersVariable.set('Authorization',token);
+
+    return this._http.get(this.url+'/hoteles/mostrarHotelesAdmin',{headers: headersToken});
+
+  }
+
+  public registrarHotel(hotel: Hotel):Observable<any>{
 
     let params = JSON.stringify(hotel);
     let headersToken = this.headersVariable.set('Authorization',this.getToken())
 
     return this._http.post(this.url+'/hoteles/registrarHotel',params,{headers: headersToken});
+
+  }
+
+  mostrarHotelId(token, id:String):Observable<any> {
+    let headersToken = this.headersVariable.set('Authorization',token);
+
+    return this._http.get(this.url+'/hoteles/mostrarHotelId/'+id,{headers: headersToken});
 
   }
 

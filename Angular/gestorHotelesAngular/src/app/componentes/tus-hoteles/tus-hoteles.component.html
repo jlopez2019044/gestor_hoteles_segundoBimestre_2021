@@ -1,2 +1,23 @@
 <app-navbar></app-navbar>
-<p>tus-hoteles works!</p>
+<div *ngFor="let hotels of hotelModelGet" class="container m-auto p-8 text-grey-darkest">
+    <div class="flex flex-wrap -mx-2">
+       <div class="w-full w-1/2 px-2 mb-2">
+          <div class="rounded-t-lg h-12 text-sm text-white bg-blue-800 flex items-center justify-center">
+              <h1 class="text-xl">{{hotels.nombre}}</h1>
+          </div>
+          <div class="bg-blue-600 p-2 flex items-center justify-center text-white">
+                <h2>Descripción: {{hotels.descripcion}}</h2>
+                
+          </div>
+          <div class="bg-blue-700 p-2 flex items-center justify-center text-white">
+            <div><h2>Dirección: {{hotels.direccion}}</h2></div>
+          </div>
+          <div class="bg-blue-600 rounded-b-lg p-2 flex items-center justify-center text-white">
+              <button class="bg-yellow-400 p-2 text-white rounded-lg hover:bg-yellow-500 mx-2" routerLink="/serviciosHotel">Ver Reservaciones</button>
+              <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" routerLink="/eventos">Ver Eventos</button>
+              <button class="bg-blue-300 p-2 text-white rounded-lg hover:bg-blue-400 mx-2">Ver Servicios</button>
+          </div>
+       </div>
+    </div>
+ 
+ </div>

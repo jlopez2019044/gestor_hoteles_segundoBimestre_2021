@@ -156,11 +156,26 @@ function mostrarHotelesAdmin(req,res) {
 
 }
 
+function mostrarHotelId(req,res){
+
+    var idHotel = req.params.idHotel;
+
+    Hotel.findById(idHotel,(err,hotelEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!hotelEncontrado) return res.status(500).send({mensaje: 'Error al obtener el Hotel'});
+
+        return res.status(200).send({hotelEncontrado});
+
+    })
+
+}
+
 module.exports={
     registrarHotel,
     mostrarHoteles,
     agregarHabitacion,
     mostrarHotelesAdmin,
     editarHabitacion,
-    editarHotel
+    editarHotel,
+    mostrarHotelId
 }

@@ -14,6 +14,7 @@ export class HotelesComponent implements OnInit {
   public identidadParseada;
   public hotelModel: Hotel;
   public hotelModelGet: Hotel;
+  public hotelModelGetId: Hotel;
   public token;
 
   constructor(private _hotelesService: HotelesService, private _usuarioService: UsuarioService) {
@@ -43,6 +44,19 @@ export class HotelesComponent implements OnInit {
     this._hotelesService.mostrarHoteles(this.token).subscribe(
       response => {
         this.hotelModelGet = response.hotelesEncontrados
+      },
+      error =>{
+        console.log(<any>error);
+        
+      }
+    )
+  }
+
+  obtenerHotelId(idHotel){
+    this._hotelesService.mostrarHotelId(this.token, idHotel).subscribe(
+      (response: any) =>{
+        this.hotelModelGetId = response.hotelEncontrado;
+        console.log(response);
       },
       error =>{
         console.log(<any>error);

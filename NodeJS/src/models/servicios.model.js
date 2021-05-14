@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var ServicioSchema = Schema({
     nombre: String,
-    subtotal: String,
+    subtotal: Number,
     idHotel: {type: Schema.Types.ObjectId, ref: 'hoteles'}
 })
 

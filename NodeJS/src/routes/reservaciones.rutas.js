@@ -8,6 +8,7 @@ const reservacionControlador = require('../controllers/reservaciones.controller'
 var md_autenticacion = require('../middlewares/authenticated');
 
 var api = express.Router();
+api.post('/registrarReservacion',md_autenticacion.ensureAuth,reservacionControlador.registrarReservacion);
 
 
 module.exports = api;

@@ -5,18 +5,20 @@ const jwt = require('../services/jwt');
 const Hotel = require('../models/hoteles.model');
 
 function registrarServicio(req,res) {
-    
+
+
+    var idHotel = req.params.idHotel
     var params= req.body;
 
     let servicioModel = new Servicio();
 
-    if(req.user.rol == 'ROL_ADMIN_HOTEL'){
+    if(req.user.rol == 'ROL_ADMIN_HOTEL' || req.user.rol=="ROL_ADMIN_APP"){
 
-        if(params.nombre && params.subtotal && params.idHotel){
+        if(params.nombre && params.subtotal){
 
             servicioModel.nombre = params.nombre;
             servicioModel.subtotal = params.subtotal;
-            servicioModel.idHotel = params.idHotel;
+            servicioModel.idHotel = idHotel;
 
             Servicio.find({$or: [
                 {nombre: servicioModel.nombre},
@@ -25,7 +27,7 @@ function registrarServicio(req,res) {
                     return res.status(500).send({mensaje: 'El servicio ya existe'})
                 }else{
                     
-                    Hotel.findById(params.idHotel,(err,hotelEncontrado)=>{
+                    Hotel.findById(idHotel,(err,hotelEncontrado)=>{
                         
                         if(err) return res.status(500).send({mensaje: 'Error en la petición del Hotel'});
                         if(!hotelEncontrado) return res.status(500).send({mensaje: 'El hotel ingresado no existe'});
