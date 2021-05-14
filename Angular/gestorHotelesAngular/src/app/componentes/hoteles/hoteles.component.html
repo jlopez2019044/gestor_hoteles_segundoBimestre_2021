@@ -17,7 +17,7 @@
           </div>
           <div class="bg-blue-600 rounded-b-lg p-2 flex items-center justify-center text-white">
               <button class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" [routerLink]="['/serviciosHotel', hotels._id]">Ver Servicios</button>
-              <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" routerLink="/eventos">Ver Eventos</button>
+              <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" [routerLink]="['/eventos',hotels._id]">Ver Eventos</button>
               <button class="bg-blue-300 p-2 text-white rounded-lg hover:bg-blue-400 mx-2" routerLink="/eventosHotel">Ver Habitaciones</button>
           </div>
        </div>

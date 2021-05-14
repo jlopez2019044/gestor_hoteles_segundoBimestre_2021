@@ -10,7 +10,6 @@ import { HttpClient,HttpHeaders } from "@angular/common/http";
 export class HotelesService {
 
   public url: String;
-  public identidad;
   public token;
   public headersVariable = new HttpHeaders().set('Content-Type','application/json');
 

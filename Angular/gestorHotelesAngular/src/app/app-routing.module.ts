@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'tusReservaciones',component: TusReservacionesComponent},
   {path: 'agregarHotel',component: AgregarHotelComponent},
   {path: 'serviciosHotel/:idHotel', component: ServiciosHotelComponent},
-  {path: 'eventos', component: EventosComponent},
+  {path: 'eventos/:idHotel', component: EventosComponent},
   {path: 'tipoEventos', component: TipoEventoComponent},
   {path: '**', component: LoginComponent}
 ];

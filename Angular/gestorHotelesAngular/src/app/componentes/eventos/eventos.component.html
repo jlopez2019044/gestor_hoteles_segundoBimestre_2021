@@ -1,2 +1,88 @@
 <app-navbar></app-navbar>
-<p>eventos works!</p>
+<div class="table w-full p-2">
+  <table class="w-full border">
+      <thead>
+          <tr class="bg-gray-50 border-b">
+              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                  ID
+              </th>
+              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                  <div class="flex items-center justify-center">
+                      Evento
+                  </div>
+              </th>
+              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                  <div class="flex items-center justify-center">
+                      Descripcion
+                  </div>
+              </th>
+              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                <div class="flex items-center justify-center">
+                    Fecha
+                </div>
+            </th>
+            <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                <div class="flex items-center justify-center">
+                    Id Tipo Evento
+                </div>
+            </th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr class="bg-gray-100 text-center border-b text-sm text-gray-600" *ngFor="let ev of eventoModelGet">
+              <td class="p-2 border-r">{{ev._id}}</td>
+              <td class="p-2 border-r">{{ev.evento}}</td>
+              <td class="p-2 border-r">{{ev.descripcion}}</td>
+              <td class="p-2 border-r">{{ev.fecha}}</td>
+              <td class="p-2 border-r">{{ev.idTipoEvento}}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+<div *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'">
+  <div class="container mx-auto mt-10">
+    <div class="p-6 border-gray-300 border-2 mx-12 rounded-lg mx-auto">
+        <p class="mb-2 text-xl text-blue-500 hover:text-blue-600">Agregar Servicio</p>
+        <form class="w-full max-w-lg mx-auto">
+            <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                  Evento
+                </label>
+                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="evento" #evento="ngModel" [(ngModel)]="eventoModel.evento" placeholder="Agregar Evento">
+              </div>
+              <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                  Fecha
+                </label>
+                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-last-name" type="date" name="fecha" #fecha="ngModel" [(ngModel)]="eventoModel.fecha" placeholder="Agregar Fecha">
+              </div>
+            </div>
+              <div class="w-full  px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                  Descripción
+                </label>
+                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="descripcion" #descripcion="ngModel" [(ngModel)]="eventoModel.descripcion" placeholder="Agregar Descripción">
+              </div>
+              <div class="w-full  px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-4" for="grid-first-name">
+                  Tipo Evento
+                </label>
+                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="tipoEvento" #tipoEvento="ngModel" [(ngModel)]="eventoModel.idTipoEvento" placeholder="Agregar Tipo Evento">
+              </div>
+            <div class="flex flex-wrap mx-3 mb-2">
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-4" for="grid-city">
+                  Agregar
+                </label>
+               <button class="modal-open rounded-lg bg-green-600 p-2 text-white hover:bg-green-700" type="submit" (click)="registrarEvento()">
+                    Agregar Evento
+                </button> 
+              </div>
+            </div>
+          </form>
+        
+    </div>  
+</div>
+</div>

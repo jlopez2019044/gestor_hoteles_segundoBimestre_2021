@@ -10,6 +10,7 @@ function registrarEvento(req,res) {
 
     var params = req.body;
     let eventoModel = new Evento();
+    var idHotel = req.params.idHotel;
 
     if(req.user.rol == 'ROL_ADMIN_APP'){
         
@@ -20,7 +21,7 @@ function registrarEvento(req,res) {
             eventoModel.hora = params.hora;
             eventoModel.fecha = params.fecha;
             eventoModel.idTipoEvento = params.idTipoEvento;
-            eventoModel.idHotel = params.idHotel;
+            eventoModel.idHotel = idHotel;
 
             Evento.find({$or: [
                 {evento: eventoModel.evento}
@@ -29,10 +30,6 @@ function registrarEvento(req,res) {
                 if(eventosEncontrados && eventosEncontrados.length >=1){
                     return res.status(500).send({mensaje: 'El evento ya existe'});
                 }else{
-
-                    Hotel.findById(params.idHotel,(err,hotelEncontrado)=>{
-                        if(err) return res.status(500).send({mensaje: 'Error en la petición de hotel'});
-                        if(!hotelEncontrado) return res.status(500).send({mensaje: 'El hotel ingresado no existe'});
 
                         TipoEvento.findById(params.idTipoEvento,(err,tipoEventoEncontrado)=>{
 
@@ -48,8 +45,6 @@ function registrarEvento(req,res) {
                             })
 
                         })
-
-                    })
 
                 }
 
@@ -123,9 +118,26 @@ function visualizarEventos(req,res){
 
 }
 
+function visualizarEventosHotel(req,res){
+
+    var idHotel = req.params.idHotel;
+    var params= req.body
+
+    Evento.find({idHotel: idHotel},(err,eventosEncontrados)=>{
+
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!eventosEncontrados) return res.status(500).send({mensaje: 'Error al visualizar los eventos'});
+
+        return res.status(200).send({eventosEncontrados});
+
+    })
+
+}
+
 module.exports = {
     registrarEvento,
     editarEvento,
     eliminarEvento,
-    visualizarEventos
+    visualizarEventos,
+    visualizarEventosHotel
 }
