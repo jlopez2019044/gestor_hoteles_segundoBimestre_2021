@@ -33,6 +33,11 @@
                 Agregar Hotel
               </a>
             </a>
+            <a *ngIf="identidadX.rol=='ROL_ADMIN_APP'">
+              <a routerLink="/tipoEventos" class="block mt-4 lg:inline-block lg:mt-0 text-teal-100 font-semibold hover:text-white hover:bg-gray-800 rounded-lg p-2">
+                Agregar Tipo Evento
+              </a>
+            </a>
           </div>
           <div>
             <a routerLink="/perfil" class="block  mr-2 mt-4 lg:inline-block lg:mt-0 text-teal-100 font-semibold hover:text-white hover:bg-gray-800 rounded-lg p-2">

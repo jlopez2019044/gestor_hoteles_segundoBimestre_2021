@@ -30,7 +30,7 @@ function registrarTipoEvento(req,res) {
                         if(err) return res.status(500).send({mensaje: 'Error al guardar el tipo de evento'});
     
                         if(tipoEventoGuardado){
-                            return res.status(500).send({tipoEventoGuardado});
+                            return res.status(200).send({tipoEventoGuardado});
                         }
     
                     })
