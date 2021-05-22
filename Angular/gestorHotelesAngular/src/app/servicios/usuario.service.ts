@@ -25,9 +25,11 @@ export class UsuarioService {
     return this._http.post(this.url+'/usuarios/registrarse',params,{headers: this.headersVariable})
   }
   
-  registrarAdminHotel(usuario: Usuario):Observable<any>{
+  registrarAdminHotel(usuario: Usuario, token):Observable<any>{
     let params = JSON.stringify(usuario);
-    return this._http.post(this.url+'/usuarios/registrarAdminHotel',params,{headers: this.headersVariable});
+    let headersToken = this.headersVariable.set('Authorization',token);
+
+    return this._http.post(this.url+'/usuarios/registrarAdminHotel',params,{headers: headersToken});
   }
 
   obtenerUsuarios(): Observable<any>{

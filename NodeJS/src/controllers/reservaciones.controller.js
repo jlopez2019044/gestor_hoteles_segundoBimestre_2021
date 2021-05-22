@@ -39,54 +39,64 @@ const jwt = require('../services/jwt');
 }*/
 
 function registrarReservacion(req,res) {
+
+    var idHabitacion = req.params.idHabitacion;
     var params = req.body;
 
-    let reservacionModel = new Reservacion();
-    let e=0;
-    if(req.user.rol == 'ROL_USUARIO'){
+    var reservacionModel= new Reservacion();
 
-        if(params.fecha_llegada && params.fecha_salida){
-            
+    if(req.user.rol =='ROL_USUARIO'){
+
+        if(params.fecha_salida && params.fecha_llegada){
+
+            let fecha_llegar = new Date(params.fecha_llegada);
+            let fecha_salir = new Date(params.fecha_salida);
+
             reservacionModel.idUsuario = req.user.sub;
-            reservacionModel.fecha_llegada = params.fecha_llegada;
-            reservacionModel.fecha_salida = params.fecha_salida;
-            reservacionModel.idHabitacion = params.idHabitacion;
+            reservacionModel.fecha_llegada = fecha_llegar;
+            reservacionModel.fecha_salida = fecha_salir;
+            reservacionModel.idHabitacion = idHabitacion;
+            let contador=0;
 
-            Reservacion.find((err,reservacionesEncontradas)=>{
-                for (let i = 0; i < reservacionesEncontradas.length; i++) {
-                    
-                    if(reservacionModel.fecha_llegada>=reservacionesEncontradas[i].fecha_llegada && reservacionModel.fecha_salida<=reservacionesEncontradas[i].fecha_salida && reservacionesEncontradas[i].idHabitacion == params.idHabitacion){
+            Reservacion.find({idHabitacion: idHabitacion},(err, reservacionEncontrada)=>{
 
-                        e++;
 
-                    }else{
+                    for (let i = 0; i < reservacionEncontrada.length; i++) {
 
-                        reservacionModel.save((err,reservacionGuardada)=>{
-
-                            if(reservacionGuardada){
-                                return res.status(200).send({reservacionGuardada});
-                            }
-
-                        })
-
+                        if(fecha_llegar.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_llegar.getTime()< reservacionEncontrada[i].fecha_salida.getTime() && fecha_salir.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_salir.getTime()< reservacionEncontrada[i].fecha_salida.getTime()) {
+                            contador++;
+                        }
+                        
                     }
-                    
-                }
 
-                if(e===reservacionesEncontradas.length){
-                    return res.status(500).send({mensaje: 'Ya existe una reservacion con esa fecha'})
+                if(contador== reservacionEncontrada.length){
+                                      
+                    reservacionModel.save((err, reservacionGuardada)=>{
+                    
+                        if(err) return res.status(500).send({mensaje: 'Error en la petición',err});
+                        if(!reservacionGuardada) return res.status(500).send({mensaje: 'Error al guardar la reservacion'});
+        
+                        return res.status(200).send({reservacionGuardada});
+        
+                    })
+
+                }else{
+
+                    return res.status(500).send({mensaje: 'Ya hay una reservación'})
+
                 }
+                
+
             })
 
         }else{
-            return res.status(500).send({mensaje: 'Debe llenar todos los datos'});
+            return res.status(500).send({mensaje: 'Debe llenar los datos'});
         }
 
     }else{
-
-        return res.status(500).send({mensaje: 'No es un cliente para poder realizar esta acción'});
-    
+        return res.status(500).send({mensaje: 'No posee los permisos para realizar esta acción'});
     }
+
 
 }
 
@@ -126,17 +136,49 @@ function eliminarReservacion(req,res) {
 
 }
 
-function visualizarReservacionesHotel(req,res) {
 
-    var idHotel = req.params.idHotel;
+function visualizarReservacionesUsuario(req,res){
 
-    Habitacion.find({idHotel: idHotel},(err,habitacionesEncontrados)=>{
+    var idUsuario = req.user.sub;
 
-        if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones'});
-        
-        
+    if(req.user.rol =='ROL_USUARIO'){
 
-    })
+        Reservacion.find({idUsuario: idUsuario},(err, reservacionesEncontradas)=>{
+
+            if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones'});
+    
+            if(!reservacionesEncontradas) return res.status(500).send({mensaje: 'Error al encontrar las reservaciones'});
+    
+            return res.status(200).send({reservacionesEncontradas})
+    
+        })
+
+    }else{
+
+        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
+
+    }
+
+}
+
+function visualizarReservacionesHabitacion(req,res){
+
+    var idHabitacion = req.params.idHabitacion;
+
+    if(req.user.rol=='ROL_ADMIN_HOTEL'){
+
+        Reservacion.find({idHabitacion: idHabitacion}).populate('idUsuario','usuario').exec((err, reservacionesEncontradas)=>{
+
+            if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+            if(!reservacionesEncontradas) return res.status(500).send({mensaje: 'Error al encontrar las reservaciones'});
+    
+            return res.status(200).send({reservacionesEncontradas});
+    
+        })    
+
+    }else{
+        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
+    }
 
 }
 
@@ -144,5 +186,7 @@ module.exports = {
     registrarReservacion,
     editarReservacion,
     eliminarReservacion,
-    registrarReservacion
+    registrarReservacion,
+    visualizarReservacionesUsuario,
+    visualizarReservacionesHabitacion
 }

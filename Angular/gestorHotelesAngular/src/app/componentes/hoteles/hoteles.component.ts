@@ -19,7 +19,7 @@ export class HotelesComponent implements OnInit {
 
   constructor(private _hotelesService: HotelesService, private _usuarioService: UsuarioService) {
     this.token = _usuarioService.getToken();
-    this.hotelModel = new Hotel("","","","",0,[{no_habitacion:0,descripcion:"",precio:0}],"")
+    this.hotelModel = new Hotel("","","","","",0,[{no_habitacion:0,descripcion:"",precio:0}],"")
    }
 
   ngOnInit(): void {

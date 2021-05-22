@@ -18,6 +18,9 @@ import { AgregarHotelComponent } from './componentes/agregar-hotel/agregar-hotel
 import { ServiciosHotelComponent } from './componentes/servicios-hotel/servicios-hotel.component';
 import { EventosComponent } from './componentes/eventos/eventos.component';
 import { TipoEventoComponent } from './componentes/tipo-evento/tipo-evento.component';
+import { HabitacionesComponent } from './componentes/habitaciones/habitaciones.component';
+import { ReservacionesComponent } from './componentes/reservaciones/reservaciones.component';
+import { AgregarReservacionComponent } from './componentes/agregar-reservacion/agregar-reservacion.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { TipoEventoComponent } from './componentes/tipo-evento/tipo-evento.compo
     AgregarHotelComponent,
     ServiciosHotelComponent,
     EventosComponent,
-    TipoEventoComponent
+    TipoEventoComponent,
+    HabitacionesComponent,
+    ReservacionesComponent,
+    AgregarReservacionComponent
   ],
   imports: [
     BrowserModule,

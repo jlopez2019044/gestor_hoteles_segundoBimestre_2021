@@ -23,15 +23,15 @@ function registrarHotel(req,res){
                     return res.status(500).send({mensaje: 'El hotel ya existe'});
                 }else{
 
-                    Usuario.findById(params.idAdminsHotel,(err,usuarioEncontrado)=>{
+                    Usuario.findOne({usuario:params.idAdminsHotel},(err,usuarioEncontrado)=>{
 
-                            if(usuarioEncontrado.rol === 'ROL_USUARIO') return res.status(500).send({mensaje: 'El usuario seleccionado no posee los permisos para ser administrador de Hotel'});
                             if(!usuarioEncontrado) return res.status(500).send({mensaje: 'El usuario no existe'});  
 
                             hotelModel.nombre = params.nombre;
                             hotelModel.direccion = params.direccion;
                             hotelModel.descripcion = params.descripcion;
-                            hotelModel.idAdminsHotel = params.idAdminsHotel;
+                            hotelModel.imagen = params.imagen;
+                            hotelModel.idAdminsHotel = usuarioEncontrado._id;
 
                             hotelModel.save((err,hotelGuardado)=>{
                                 if(err) return res.status(500).send({mensaje: 'Error al guardar el hotel', err});
@@ -84,12 +84,12 @@ function agregarHabitacion(req,res) {
 
     if(req.user.rol == 'ROL_ADMIN_APP' || req.user.rol =='ROL_ADMIN_HOTEL'){
 
-        Hotel.findOneAndUpdate(idHabitacion,{$push: {habitaciones:{no_habitacion: params.idHabitacion, descripcion: params.descripcion, precio: params.precio}}},
+        Hotel.findOneAndUpdate(idHabitacion,{$push: {habitaciones:{no_habitacion: params.no_habitacion, descripcion: params.descripcion, precio: params.precio}}},
             {new: true}, (err,habitacionAgregada)=>{
     
-                if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones'});
+                if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones', err});
                 if(!habitacionAgregada) return res.status(500).send({mensaje: 'Error al agregar la habitación del hotel'});
-                return res.status(500).send({habitacionAgregada});
+                return res.status(200).send({habitacionAgregada});
     
             })
 
@@ -108,7 +108,7 @@ function editarHabitacion(req,res) {
     if(req.user.rol == 'ROL_ADMIN_APP' || req.user.rol =='ROL_ADMIN_HOTEL'){
 
         Hotel.findByIdAndUpdate({_id: hotelId, "habitaciones._id": habitacionId},
-        {"habitaciones.$.nombre": params.nombre, "habitaciones.$.descripcion": params.descripcion, "habitaciones.$.precio": params.precio},
+        {"habitaciones.$.no_habitacion": params.nombre, "habitaciones.$.descripcion": params.descripcion, "habitaciones.$.precio": params.precio},
         {new: true, useFindAndModify: false}, (err,habitacionEditada)=>{
     
             if(err) return res.status(500).send({mensaje: 'Error en la petición de habitaciones'});
@@ -170,6 +170,21 @@ function mostrarHotelId(req,res){
 
 }
 
+function buscarHotelesDireccionNombre(req,res) {
+
+    var params = req.body;
+    Hotel.aggregate([
+        {$match: {nombre: {$regex: params.buscar,$options: 'i'}}},
+        {$match: {direccion: {$regex: params.buscar,$options: 'i'}}},  
+    ]).exec((err,hotelEncontrado)=>{
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!hotelEncontrado) return res.status(500).send({mensaje: 'Error al encontrar el hotel'});
+
+        return res.status(200).send({hotelEncontrado});
+    })
+    
+}
+
 module.exports={
     registrarHotel,
     mostrarHoteles,
@@ -177,5 +192,6 @@ module.exports={
     mostrarHotelesAdmin,
     editarHabitacion,
     editarHotel,
-    mostrarHotelId
+    mostrarHotelId,
+    buscarHotelesDireccionNombre
 }

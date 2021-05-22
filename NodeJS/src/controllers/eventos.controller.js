@@ -16,13 +16,6 @@ function registrarEvento(req,res) {
         
         if(params.evento && params.fecha){  
 
-            eventoModel.evento = params.evento;
-            eventoModel.descripcion = params.descripcion;
-            eventoModel.hora = params.hora;
-            eventoModel.fecha = params.fecha;
-            eventoModel.idTipoEvento = params.idTipoEvento;
-            eventoModel.idHotel = idHotel;
-
             Evento.find({$or: [
                 {evento: eventoModel.evento}
             ]}).exec((err,eventosEncontrados)=>{
@@ -31,7 +24,14 @@ function registrarEvento(req,res) {
                     return res.status(500).send({mensaje: 'El evento ya existe'});
                 }else{
 
-                        TipoEvento.findById(params.idTipoEvento,(err,tipoEventoEncontrado)=>{
+                        TipoEvento.findOne({nombre: params.idTipoEvento},(err,tipoEventoEncontrado)=>{
+
+                            eventoModel.evento = params.evento;
+                            eventoModel.descripcion = params.descripcion;
+                            eventoModel.hora = params.hora;
+                            eventoModel.fecha = params.fecha;
+                            eventoModel.idTipoEvento = tipoEventoEncontrado._id;
+                            eventoModel.idHotel = idHotel;
 
                             if(err) return res.status(500).send({mensaje: 'Error en la petición de tipo evento'});
                             if(!tipoEventoEncontrado) return res.status(500).send({mensaje: 'El Tipo Evento ingresado no existe'});

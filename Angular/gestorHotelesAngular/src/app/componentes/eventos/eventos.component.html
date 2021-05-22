@@ -69,7 +69,13 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-4" for="grid-first-name">
                   Tipo Evento
                 </label>
-                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="tipoEvento" #tipoEvento="ngModel" [(ngModel)]="eventoModel.idTipoEvento" placeholder="Agregar Tipo Evento">
+                <!--<input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="tipoEvento" #tipoEvento="ngModel" [(ngModel)]="eventoModel.idTipoEvento" placeholder="Agregar Tipo Evento">-->
+                <div class="relative">
+                  <select name="idTipoEvento" #idTipoEvento="ngModel" [(ngModel)]="eventoModel.idTipoEvento" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded" id="grid-state">
+                    <option>Tipo Evento</option>
+                    <option *ngFor="let tevento of tipoEventoModelGet">{{tevento.nombre}}</option>
+                  </select>
+                </div>
               </div>
             <div class="flex flex-wrap mx-3 mb-2">
               <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">

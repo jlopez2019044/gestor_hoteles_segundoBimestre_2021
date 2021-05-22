@@ -4,6 +4,7 @@ export class Hotel{
         public nombre: String,
         public direccion: String,
         public descripcion: String,
+        public imagen: String,
         public popularidad: Number,
         public habitaciones:[{
             no_habitacion: Number,

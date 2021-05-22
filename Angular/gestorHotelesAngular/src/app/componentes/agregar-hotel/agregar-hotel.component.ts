@@ -18,7 +18,7 @@ export class AgregarHotelComponent implements OnInit {
   public usuarioModelGet: Usuario;
 
   constructor(private _hotelesService: HotelesService, private _usuarioService: UsuarioService, private _router: Router) {
-    this.hotelModel = new Hotel("","","","",0,[{no_habitacion:0,descripcion:"",precio:0}],"")
+    this.hotelModel = new Hotel("","","","","",0,[{no_habitacion:0,descripcion:"",precio:0}],"")
   }
 
   ngOnInit(): void {

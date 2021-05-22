@@ -12,17 +12,19 @@ import Swal from "sweetalert2";
 })
 export class RegistrarAdminHotelComponent implements OnInit {
 
-  public userHotel: Usuario  
+  public userHotel: Usuario
+  public token;  
 
   constructor(private _usuarioService: UsuarioService,private _router: Router) { 
     this.userHotel = new Usuario("","","","","","")
+    this.token = this._usuarioService.getToken();
   }
 
   ngOnInit(): void {
   }
 
   registrarAdminHotel(){
-    this._usuarioService.registro(this.userHotel).subscribe(
+    this._usuarioService.registrarAdminHotel(this.userHotel, this.token).subscribe(
       response =>{
         console.log(response)
         Swal.fire({

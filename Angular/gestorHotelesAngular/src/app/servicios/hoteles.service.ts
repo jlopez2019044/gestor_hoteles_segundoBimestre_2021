@@ -49,6 +49,14 @@ export class HotelesService {
 
   }
 
+  agregarHabitacion(token, id:String, habitacion: Hotel): Observable<any>{
+    
+    let headersToken = this.headersVariable.set('Authorization',token);
+    let params = JSON.stringify(habitacion);
+
+    return this._http.put(this.url+'/hoteles/agregarHabitacion/'+id,params,{headers: headersToken});
+  }
+
   getToken(){
     var token2 = localStorage.getItem('token');
     if(token2 != 'undefined'){
