@@ -15,6 +15,8 @@
         Dirección: {{hotels.direccion}}
     </div>
     <div class="mt-6">
+        <button *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'" class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" [routerLink]="['/editarHotel', hotels._id]" (click)="obtenerHotelId(hotels._id)">Editar Hotel</button>
+        <button *ngIf="identidadParseada._id==hotels.idAdminsHotel" class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" [routerLink]="['/editarHotel', hotels._id]">Editar Hotel</button>
         <button class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" [routerLink]="['/serviciosHotel', hotels._id]">Ver Servicios</button>
         <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" [routerLink]="['/eventos',hotels._id]">Ver Eventos</button>
         <button class="bg-blue-300 p-2 text-white rounded-lg hover:bg-blue-400 mx-2" [routerLink]="['/habitaciones',hotels._id]">Ver Habitaciones</button>

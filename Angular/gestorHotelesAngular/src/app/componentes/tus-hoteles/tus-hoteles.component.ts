@@ -13,6 +13,7 @@ export class TusHotelesComponent implements OnInit {
 
   public token;
   public hotelModelGet: Hotel;
+  public hotelModelGetId: Hotel;
 
   constructor(private _hotelesService: HotelesService, private _usuarioService: UsuarioService) {
     this.token = _usuarioService.getToken()
@@ -26,6 +27,19 @@ export class TusHotelesComponent implements OnInit {
     this._hotelesService.mostrarHotelesAdmin(this.token).subscribe(
       response => {
         this.hotelModelGet = response.hotelesEncontrados;
+      },
+      error =>{
+        console.log(<any>error);
+        
+      }
+    )
+  }
+
+  obtenerHotelId(idHotel){
+    this._hotelesService.mostrarHotelId(this.token, idHotel).subscribe(
+      (response: any) =>{
+        this.hotelModelGetId = response.hotelEncontrado;
+        console.log(response);
       },
       error =>{
         console.log(<any>error);

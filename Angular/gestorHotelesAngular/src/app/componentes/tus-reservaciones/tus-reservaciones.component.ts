@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReservacionService } from 'src/app/servicios/reservacion.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Reservacion } from '../models/reservacion.model';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-tus-reservaciones',
@@ -32,6 +33,30 @@ export class TusReservacionesComponent implements OnInit {
       error=>{
         console.log(<any>error);
         
+      }
+    )
+
+  }
+
+  eliminarReservacion(idReservacion){
+
+    this._reservacionService.eliminarReservacion(idReservacion,this.token).subscribe(
+      response =>{
+        console.log(response);
+        this.visualizarReservacionesUsuario()
+        Swal.fire({
+          icon: 'success',
+          title: 'Reservación eliminada',
+        })
+        
+      },
+      error=>{
+        console.log(<any>error);
+        
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo eliminar la Reservación',
+        })
       }
     )
 

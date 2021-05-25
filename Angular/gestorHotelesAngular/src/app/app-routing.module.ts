@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AgregarHotelComponent } from './componentes/agregar-hotel/agregar-hotel.component';
 import { AgregarReservacionComponent } from './componentes/agregar-reservacion/agregar-reservacion.component';
+import { EditarHotelComponent } from './componentes/editar-hotel/editar-hotel.component';
 import { EventosComponent } from './componentes/eventos/eventos.component';
 import { HabitacionesComponent } from './componentes/habitaciones/habitaciones.component';
 import { HotelesComponent } from './componentes/hoteles/hoteles.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'habitaciones/:idHotel',component: HabitacionesComponent},
   {path: 'reservaciones/:idHabitacion', component: ReservacionesComponent},
   {path: 'agregarReservacion/:idHabitacion', component: AgregarReservacionComponent},
+  {path: 'editarHotel/:idHotel',component: EditarHotelComponent},
   {path: '**', component: LoginComponent}
 ];
 

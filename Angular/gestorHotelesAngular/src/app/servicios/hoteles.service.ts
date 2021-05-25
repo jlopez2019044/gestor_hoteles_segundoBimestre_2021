@@ -42,6 +42,15 @@ export class HotelesService {
 
   }
 
+  editarHotel(hotel: Hotel, token): Observable<any>{
+
+    let params = JSON.stringify(hotel);
+    let headersToken = this.headersVariable.set('Authorization',token)
+    
+    return this._http.put(this.url+'/hoteles/editarHotel/'+hotel._id,params,{headers: headersToken});
+
+  }
+
   mostrarHotelId(token, id:String):Observable<any> {
     let headersToken = this.headersVariable.set('Authorization',token);
 

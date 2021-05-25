@@ -44,4 +44,19 @@ export class ReservacionesComponent implements OnInit {
     )
   }
 
+  eliminarReservacion(idReservacion){
+
+    this._reservacionService.eliminarReservacion(idReservacion,this.token).subscribe(
+      response =>{
+        console.log(response);
+        this.reservacionModelGet = response.reservacionesEncontradas;
+        
+      },
+      error=>{
+
+      }
+    )
+
+  }
+
 }

@@ -123,7 +123,7 @@ function visualizarEventosHotel(req,res){
     var idHotel = req.params.idHotel;
     var params= req.body
 
-    Evento.find({idHotel: idHotel},(err,eventosEncontrados)=>{
+    Evento.find({idHotel: idHotel})/*.populate('idTipoEvento','nombre')*/.exec((err,eventosEncontrados)=>{
 
         if(err) return res.status(500).send({mensaje: 'Error en la petición'});
         if(!eventosEncontrados) return res.status(500).send({mensaje: 'Error al visualizar los eventos'});

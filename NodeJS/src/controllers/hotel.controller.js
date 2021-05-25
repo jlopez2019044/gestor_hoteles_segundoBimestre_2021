@@ -65,8 +65,8 @@ function editarHotel(req,res) {
         
         if(req.user.sub == hotelEncontrado.idAdminsHotel){
             
-            Hotel.findByIdAndUpdate(idHotel,params,{new: true},(err,hotelActualizado)=>{
-                if(err) return res.status(500).send({mensaje: 'Error en la petición de Hotel'});
+            Hotel.findByIdAndUpdate(idHotel,params,{new: true, useFindAndModify: false},(err,hotelActualizado)=>{
+                if(err) return res.status(500).send({mensaje: 'Error en la petición de Hotel',err});
                 if(!hotelActualizado) return res.status(500).send({mensaje: 'Error al actualizar el hotel'});
                 return res.status(200).send({hotelActualizado});
             })

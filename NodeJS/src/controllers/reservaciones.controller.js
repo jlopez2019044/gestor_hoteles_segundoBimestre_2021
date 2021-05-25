@@ -4,40 +4,6 @@ const Hotel = require('../models/hoteles.model');
 const Reservacion = require('../models/reservaciones.model');
 const jwt = require('../services/jwt');
 
-/*function registrarReservacion(req,res) {
-    
-    var params = req.body;
-
-    let reservacionModel = new Reservacion();
-
-    if(req.user.rol == 'ROL_USUARIO'){
-
-        if(params.idUsuario && params.fecha_llegada && params.fecha_salida){
-
-            reservacionModel.idUsuario = params.idUsuario;
-            reservacionModel.fecha_llegada = params.fecha_salida;
-            reservacionModel.idHabitacion = params.idHabitacion;
-
-            Reservacion.findOne({fecha_llegada : params.fecha_llegada, fecha_salida: params.fecha_salida},(err,reservacionEncontrada)=>{
-                if(reservacionEncontrada) return res.status(500).send({mensaje: 'La reservacion solicitada ya existe'});
-                if(err) return res.status(500).send({mensaje: 'Error en la busqueda de reservaciones existentes'});
-
-                if(!reservacionEncontrada){
-
-                }
-
-            })
-
-        }else{
-            return res.status(500).send({mensaje: 'Debe llenar los datos'})
-        }
-
-    }else{
-        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
-    }
-
-}*/
-
 function registrarReservacion(req,res) {
 
     var idHabitacion = req.params.idHabitacion;
@@ -75,7 +41,7 @@ function registrarReservacion(req,res) {
                     
                         if(err) return res.status(500).send({mensaje: 'Error en la petición',err});
                         if(!reservacionGuardada) return res.status(500).send({mensaje: 'Error al guardar la reservacion'});
-        
+
                         return res.status(200).send({reservacionGuardada});
         
                     })

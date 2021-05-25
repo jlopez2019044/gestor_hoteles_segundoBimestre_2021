@@ -11,5 +11,6 @@ var api = express.Router();
 api.post('/registrarReservacion/:idHabitacion',md_autenticacion.ensureAuth,reservacionControlador.registrarReservacion);
 api.get('/visualizarReservacionesUsuario',md_autenticacion.ensureAuth,reservacionControlador.visualizarReservacionesUsuario);
 api.get('/visualizarReservacionesHabitacion/:idHabitacion',md_autenticacion.ensureAuth,reservacionControlador.visualizarReservacionesHabitacion);
+api.delete('/eliminarReservacion/:idReservacion',md_autenticacion.ensureAuth,reservacionControlador.eliminarReservacion);
 
 module.exports = api;

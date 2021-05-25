@@ -42,6 +42,14 @@ export class ReservacionService {
     return this._http.get(this.url+'/reservaciones/visualizarReservacionesHabitacion/'+id,{headers: headersToken});
   }
 
+  eliminarReservacion(id:String, token):  Observable<any> {
+    
+    let headersToken = this.headersVariable.set('Authorization',token)
+
+    return this._http.delete(this.url+'/reservaciones/eliminarReservacion/'+id,{headers:headersToken});
+
+  }
+
   getToken(){
     var token2 = localStorage.getItem('token');
     if(token2 != 'undefined'){
