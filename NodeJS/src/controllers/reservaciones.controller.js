@@ -29,8 +29,12 @@ function registrarReservacion(req,res) {
 
                     for (let i = 0; i < reservacionEncontrada.length; i++) {
 
-                        if(fecha_llegar.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_llegar.getTime()< reservacionEncontrada[i].fecha_salida.getTime() && fecha_salir.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_salir.getTime()< reservacionEncontrada[i].fecha_salida.getTime()) {
-                            contador++;
+                        if(fecha_llegar.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_llegar.getTime()< reservacionEncontrada[i].fecha_salida.getTime()) {
+                            
+                            if(fecha_salir.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_salir.getTime()< reservacionEncontrada[i].fecha_salida.getTime()){
+                                contador++;
+                            }
+                            
                         }
                         
                     }
@@ -93,7 +97,6 @@ function eliminarReservacion(req,res) {
 
         if(err) return res.status(500).send({mensaje: 'Error en la petición'});
         if(!reservacionEliminada) return res.status(500).send({mensaje: 'Error al actualizar la reservación'});
-        if(reservacionEliminada.idUsuario != req.user.sub) return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
 
         return res.status(200).send({reservacionEliminada});
 

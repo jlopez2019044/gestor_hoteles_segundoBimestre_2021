@@ -52,6 +52,23 @@ export class EditarHotelComponent implements OnInit {
     )
   }
 
+  eliminarHotel(){
+    this._hotelesService.eliminarHotel(this.idHotelRuta,this.token).subscribe(
+      response=>{
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Hotel eliminado con éxito',
+        })
+        this._router.navigate(['/hoteles'])
+      },
+      error=>{
+        console.log(<any>error);
+        
+      }
+    )
+  }
+
   obtenerHotel(idHotel){
     this._hotelesService.mostrarHotelId(this.token,idHotel).subscribe(
       response =>{

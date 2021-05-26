@@ -78,6 +78,19 @@ function editarHotel(req,res) {
     })
 }
 
+function eliminarHotel(req,res) {
+    var idHotel = req.params.idHotel;
+
+    Hotel.findByIdAndDelete(idHotel,(err,hotelEliminado)=>{
+
+        if(err) return res.status(500).send({mensaje: 'Error en la petición'});
+        if(!hotelEliminado) return res.status(500).send({mensaje: 'Error al eliminar el hotel'});
+        return res.status(200).send({hotelEliminado});
+
+    })
+
+}
+
 function agregarHabitacion(req,res) {
     var idHabitacion = req.params.idHabitacion;
     var params = req.body;
@@ -185,6 +198,23 @@ function buscarHotelesDireccionNombre(req,res) {
     
 }
 
+function mostrarHotelesPopulares(req,res){
+    Hotel.aggregate([
+        {
+            $project: { nombre: 1, direccion: 1, descripcion: 1, imagen: 1, idAdminsHotel: 1, popularity: 1 }
+        },
+        {
+            $sort: { popularidad: -1 }
+        },
+        {
+            $limit: 4
+        }
+    ]).exec((err, hotelesEncontrados) => {
+        return res.status(200).send({ hotelesEncontrados })
+    })
+
+}
+
 module.exports={
     registrarHotel,
     mostrarHoteles,
@@ -193,5 +223,7 @@ module.exports={
     editarHabitacion,
     editarHotel,
     mostrarHotelId,
-    buscarHotelesDireccionNombre
+    buscarHotelesDireccionNombre,
+    eliminarHotel,
+    mostrarHotelesPopulares
 }

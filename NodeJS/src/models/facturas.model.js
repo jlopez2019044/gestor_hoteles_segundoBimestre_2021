@@ -9,8 +9,10 @@ var FacturaSchema = Schema({
     fecha_salida: Date,
     idHabitacion: {type: Schema.Types.ObjectId, ref: 'hotel.habitaciones._id'},
     idReservacion: {type: Schema.Types.ObjectId, ref: 'reservaciones'},
-    serviciosHotel:[{type: Schema.Types.ObjectId, ref: 'servicios'}],
-    total: Number
+    serviciosHotel:[
+        {type: Schema.Types.ObjectId, ref: 'servicios'}
+    ],
+    total: {type:Number , default: 0}
 })
 
 module.exports = mongoose.model('facturas',FacturaSchema);

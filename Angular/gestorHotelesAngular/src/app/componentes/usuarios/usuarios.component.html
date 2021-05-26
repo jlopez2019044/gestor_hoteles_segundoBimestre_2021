@@ -9,6 +9,11 @@
                 </th>
                 <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
                     <div class="flex items-center justify-center">
+                        Imagen
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
                         Nombre
                     </div>
                 </th>
@@ -32,6 +37,9 @@
         <tbody>
             <tr class="bg-gray-100 text-center border-b text-sm text-gray-600" *ngFor="let usua of usuarios">
                 <td class="p-2 border-r">{{usua._id}}</td>
+                <td class="p-2 border-r "><div class="flex justify-center">
+                    <img class="rounded-lg h-6 w-6" *ngIf ="usua.imagen" [src]="usua.imagen"> <img class="rounded-lg h-6 w-6" *ngIf ="!usua.imagen" src="https://image.flaticon.com/icons/png/512/44/44948.png">
+                </div></td>
                 <td class="p-2 border-r">{{usua.nombre}}</td>
                 <td class="p-2 border-r">{{usua.apellido}}</td>
                 <td class="p-2 border-r">{{usua.usuario}}</td>

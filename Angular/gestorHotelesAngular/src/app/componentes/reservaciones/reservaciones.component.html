@@ -11,7 +11,8 @@
        <p class="text-left">Fecha Salida: {{reserv.fecha_salida}}</p>
     </div>
     <div class="mt-6">
-        <button class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" >Visualizar Factura</button>
-        <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" >Eliminar Reservación</button>
+        <button class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" (click)="crearFactura(reserv._id)" >Crear Factura</button>
+        <button class="modal-open bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" type="submit" [routerLink]="['/factura',reserv._id]">Visualizar Factura</button>
+        <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" (click)="eliminarReservacion(reserv._id)" type="submit">Eliminar Reservación</button>
     </div>  
 </div>

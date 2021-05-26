@@ -4,7 +4,7 @@
 
 <div  *ngFor="let hotels of hotelModelGet" class="grid grid-cols-1 md:grid-cols-3 md:grid-flow-col bg-white m-5 mx-12">
     <div class="p-5 bg-blue-100 md:rounded-l-lg">
-      <img [src]="hotels.imagen" class="object-center rounded-full">
+      <img *ngIf="hotels.imagen" [src]="hotels.imagen" class="object-center rounded-full"><img *ngIf="!hotels.imagen" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder-1024x512.png" class="object-center rounded-full">
     </div>
     <div class="bg-gray-200 p-5 col-span-2 md:rounded-r-lg text-center">
       <div class="text-2xl font-semibold text-gray-700">Hotel: {{hotels.nombre}}</div>

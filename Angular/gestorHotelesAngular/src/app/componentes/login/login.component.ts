@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   public identidad;
 
   constructor(private _usuarioService: UsuarioService, private _router: Router) {
-    this.usuarioLogeado = new Usuario("","","","","","");
+    this.usuarioLogeado = new Usuario("","","","","","","");
    }
 
   ngOnInit(): void {
@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Usuario Logeado',
+        }).then(()=>{
+          this._router.navigate(['/hoteles'])
         })
-        this._router.navigate(['/hoteles'])
       },
       error =>{
         Swal.fire({

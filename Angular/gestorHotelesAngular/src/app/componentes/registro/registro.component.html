@@ -1,7 +1,7 @@
 <body class>
     <div class="lg:flex">
         <div class="lg:w-1/2 xl:max-w-screen-sm">
-            <div class="pt-2 pb-4 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
+            <div class="pt-2 pb-0 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
                 <div class="cursor-pointer flex items-center">
                     <div class="text-2xl text-indigo-800 tracking-wide ml-2 font-semibold">EZHOTEL</div>
                 </div>
@@ -9,7 +9,7 @@
             <div class=" px-12 sm:px-24 md:px-48 lg:px-12 xl:px-24 xl:max-w-2xl">
                 <h2 class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl
                 xl:text-bold">Regístrate</h2>
-                <div class="mt-12">
+                <div class="mt-0">
                     <form>
                         <div>
                             <div class="text-sm font-bold text-gray-700 tracking-wide">Nombre</div>
@@ -39,6 +39,16 @@
                             </div>
                             <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" name="password" id="inputPassword" #password="ngModel" [(ngModel)]="user.password" placeholder="Ingresa tu contraseña">
                         </div>
+                        <div class="mt-8">
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm font-bold text-gray-700 tracking-wide">
+                                    Imagen
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" name="imagen" id="inpnutImagen" #password="ngModel" [(ngModel)]="user.imagen" placeholder="Ingresa le URL de la imagen">
+                        </div>
                         <div class="mt-10">
                             <button class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                             font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
@@ -47,7 +57,7 @@
                             </button>
                         </div>
                     </form>
-                    <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+                    <div class="mt-4 text-sm font-display font-semibold text-gray-700 text-center">
                         ¿Ya tenías una cuenta? <a class="cursor-pointer text-indigo-600 hover:text-indigo-800" routerLink="/login">Inicia Sesión</a>
                     </div>
                 </div>

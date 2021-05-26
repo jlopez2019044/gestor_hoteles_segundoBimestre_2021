@@ -16,7 +16,7 @@ export class RegistrarAdminHotelComponent implements OnInit {
   public token;  
 
   constructor(private _usuarioService: UsuarioService,private _router: Router) { 
-    this.userHotel = new Usuario("","","","","","")
+    this.userHotel = new Usuario("","","","","","","")
     this.token = this._usuarioService.getToken();
   }
 

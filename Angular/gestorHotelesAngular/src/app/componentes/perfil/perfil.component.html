@@ -4,6 +4,9 @@
     <div class="p-6 border-gray-300 border-2 mx-12 rounded-lg mx-auto">
         <p class="mb-2 text-xl text-blue-500 hover:text-blue-600">Usuario: {{usuarioModel.nombre}}</p>
         <form class="w-full max-w-lg mx-auto">
+          <div class="flex justify-center mb-4">
+            <img class="rounded-full h-32 w-32" *ngIf ="usuarioModel.imagen" [src]="usuarioModel.imagen"> <img class="rounded-full h-32 w-32" *ngIf ="!usuarioModel.imagen" src="https://image.flaticon.com/icons/png/512/44/44948.png">
+          </div>
             <div class="flex flex-wrap -mx-3 mb-6">
               <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
@@ -91,6 +94,12 @@
                       Usuario
                     </label>
                     <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-password" type="text" name="usuario" #usuario="ngModel" [(ngModel)]="usuarioModel.usuario" placeholder="Editar Usuario">
+                  </div>
+                  <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                      URL Imágen
+                    </label>
+                    <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-password" type="text" name="imagen" #usuario="ngModel" [(ngModel)]="usuarioModel.imagen" placeholder="Editar URL Imagen">
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">

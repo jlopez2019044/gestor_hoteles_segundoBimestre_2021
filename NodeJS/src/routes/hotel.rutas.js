@@ -11,6 +11,7 @@ var api = express.Router();
 api.post('/registrarHotel',md_autenticacion.ensureAuth,hotelControlador.registrarHotel);
 api.get('/mostrarHoteles',md_autenticacion.ensureAuth,hotelControlador.mostrarHoteles);
 api.put('/editarHotel/:idHotel',md_autenticacion.ensureAuth,hotelControlador.editarHotel);
+api.delete('/eliminarHotel/:idHotel',md_autenticacion.ensureAuth,hotelControlador.eliminarHotel);
 api.get('/mostrarHotelesAdmin',md_autenticacion.ensureAuth,hotelControlador.mostrarHotelesAdmin);
 api.put('/agregarHabitacion/:idHotel',md_autenticacion.ensureAuth,hotelControlador.agregarHabitacion);
 api.put('/editarHabitacion/:idHotel/:idHabitacion',md_autenticacion.ensureAuth,hotelControlador.editarHabitacion);

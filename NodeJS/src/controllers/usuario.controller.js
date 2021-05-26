@@ -48,6 +48,7 @@ function registrarUsuario(req,res) {
     usuarioModel.password = params.password;
     usuarioModel.rol = 'ROL_USUARIO';
     usuarioModel.nombre = params.nombre;
+    usuarioModel.imagen = params.imagen;
     usuarioModel.apellido = params.apellido;
 
     Usuario.find({$or: [

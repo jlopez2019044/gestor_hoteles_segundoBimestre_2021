@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
   public identidadParseada;
 
   constructor(private _usuarioService: UsuarioService, private _router: Router) { 
-    this.usuarioModel = new Usuario("","","","","","")
+    this.usuarioModel = new Usuario("","","","","","","")
   }
 
   ngOnInit(): void {

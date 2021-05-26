@@ -14,7 +14,7 @@ export class UsuariosComponent implements OnInit {
   public usuarioModel: Usuario;
 
   constructor(private _usuarioService: UsuarioService) {
-    this.usuarioModel = new Usuario("","","","","","")
+    this.usuarioModel = new Usuario("","","","","","","")
    }
 
   ngOnInit(): void {

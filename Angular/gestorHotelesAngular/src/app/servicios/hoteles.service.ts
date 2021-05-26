@@ -51,6 +51,12 @@ export class HotelesService {
 
   }
 
+  eliminarHotel(id: String, token): Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization',token)
+    return this._http.delete(this.url+'/hoteles/eliminarHotel/'+id,{headers: headersToken});
+  }
+
   mostrarHotelId(token, id:String):Observable<any> {
     let headersToken = this.headersVariable.set('Authorization',token);
 

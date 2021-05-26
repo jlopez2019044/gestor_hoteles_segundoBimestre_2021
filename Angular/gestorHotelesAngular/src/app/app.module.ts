@@ -22,6 +22,7 @@ import { HabitacionesComponent } from './componentes/habitaciones/habitaciones.c
 import { ReservacionesComponent } from './componentes/reservaciones/reservaciones.component';
 import { AgregarReservacionComponent } from './componentes/agregar-reservacion/agregar-reservacion.component';
 import { EditarHotelComponent } from './componentes/editar-hotel/editar-hotel.component';
+import { FacturaComponent } from './componentes/factura/factura.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { EditarHotelComponent } from './componentes/editar-hotel/editar-hotel.co
     HabitacionesComponent,
     ReservacionesComponent,
     AgregarReservacionComponent,
-    EditarHotelComponent
+    EditarHotelComponent,
+    FacturaComponent
   ],
   imports: [
     BrowserModule,
