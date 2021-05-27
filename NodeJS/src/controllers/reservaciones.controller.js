@@ -24,17 +24,20 @@ function registrarReservacion(req,res) {
             reservacionModel.idHabitacion = idHabitacion;
             let contador=0;
 
+            //if(fecha_llegar < Date.now() || fecha_salir < Date.now()) return res.status(500).send({mensaje: 'No se puede reservar en fechas pasadas'})
+
             Reservacion.find({idHabitacion: idHabitacion},(err, reservacionEncontrada)=>{
 
 
                     for (let i = 0; i < reservacionEncontrada.length; i++) {
 
-                        if(fecha_llegar.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_llegar.getTime()< reservacionEncontrada[i].fecha_salida.getTime()) {
-                            
-                            if(fecha_salir.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() && fecha_salir.getTime()< reservacionEncontrada[i].fecha_salida.getTime()){
-                                contador++;
-                            }
-                            
+                        if(fecha_llegar.getTime()>reservacionEncontrada[i].fecha_llegada.getTime() &&
+                        fecha_llegar.getTime()> reservacionEncontrada[i].fecha_salida.getTime() ||
+                        fecha_llegar.getTime()< reservacionEncontrada[i].fecha_llegada.getTime() &&
+                        fecha_salir.getTime()< reservacionEncontrada[i].fecha_salida.getTime()){
+
+                            contador++;
+
                         }
                         
                     }

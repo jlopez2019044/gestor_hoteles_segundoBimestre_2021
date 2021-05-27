@@ -1,44 +1,23 @@
 <app-navbar></app-navbar>
-<div class="table w-full p-2">
-  <table class="w-full border">
-      <thead>
-          <tr class="bg-gray-50 border-b">
-              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
-                  ID
-              </th>
-              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
-                  <div class="flex items-center justify-center">
-                      Evento
-                  </div>
-              </th>
-              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
-                  <div class="flex items-center justify-center">
-                      Descripcion
-                  </div>
-              </th>
-              <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
-                <div class="flex items-center justify-center">
-                    Fecha
-                </div>
-            </th>
-            <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
-                <div class="flex items-center justify-center">
-                    Id Tipo Evento
-                </div>
-            </th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr class="bg-gray-100 text-center border-b text-sm text-gray-600" *ngFor="let ev of eventoModelGet">
-              <td class="p-2 border-r">{{ev._id}}</td>
-              <td class="p-2 border-r">{{ev.evento}}</td>
-              <td class="p-2 border-r">{{ev.descripcion}}</td>
-              <td class="p-2 border-r">{{ev.fecha}}</td>
-              <td class="p-2 border-r">{{ev.idTipoEvento}}</td>
-          </tr>
-      </tbody>
-  </table>
-</div>
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 lg:w-1/2 md:w-full" *ngFor="let ev of eventoModelGet">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+            E
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ev.evento}}</h2>
+            <p class="leading-relaxed text-base">Fecha: {{ev.fecha}} </p>
+            <p class="leading-relaxed text-base">Descripción: {{ev.descripcion}}</p>
+            <p class="leading-relaxed text-base">ID Evento: {{ev._id}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'">
   <div class="container mx-auto mt-10">

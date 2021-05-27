@@ -160,10 +160,11 @@ function registrarAdminHotel(req,res) {
         if(params.usuario && params.password){
 
             usuarioModel.usuario = params.usuario;
-            usuarioModel.usuario = params.usuario;
+            usuarioModel.nombre = params.nombre;
             usuarioModel.password = params.password;
             usuarioModel.rol = 'ROL_ADMIN_HOTEL';
             usuarioModel.apellido = params.apellido;
+            usuarioModel.imagen = params.imagen;
 
             Usuario.find({$or: [
                 {usuario: usuarioModel.usuario}

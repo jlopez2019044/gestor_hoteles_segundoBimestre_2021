@@ -16,5 +16,6 @@ api.get('/mostrarHotelesAdmin',md_autenticacion.ensureAuth,hotelControlador.most
 api.put('/agregarHabitacion/:idHotel',md_autenticacion.ensureAuth,hotelControlador.agregarHabitacion);
 api.put('/editarHabitacion/:idHotel/:idHabitacion',md_autenticacion.ensureAuth,hotelControlador.editarHabitacion);
 api.get('/mostrarHotelId/:idHotel',md_autenticacion.ensureAuth,hotelControlador.mostrarHotelId);
+api.get('/crearPDF/:idHotel',md_autenticacion.ensureAuth,hotelControlador.crearPDF);
 
 module.exports = api;

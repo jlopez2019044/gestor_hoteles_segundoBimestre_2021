@@ -23,6 +23,7 @@ import { ReservacionesComponent } from './componentes/reservaciones/reservacione
 import { AgregarReservacionComponent } from './componentes/agregar-reservacion/agregar-reservacion.component';
 import { EditarHotelComponent } from './componentes/editar-hotel/editar-hotel.component';
 import { FacturaComponent } from './componentes/factura/factura.component';
+import { HotelesPopularesComponent } from './componentes/hoteles-populares/hoteles-populares.component';
 
 @NgModule({
   declarations: [
@@ -44,13 +45,14 @@ import { FacturaComponent } from './componentes/factura/factura.component';
     ReservacionesComponent,
     AgregarReservacionComponent,
     EditarHotelComponent,
-    FacturaComponent
+    FacturaComponent,
+    HotelesPopularesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

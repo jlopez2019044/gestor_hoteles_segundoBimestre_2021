@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HotelesService } from 'src/app/servicios/hoteles.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Hotel } from '../models/hotel.model';
+import Swal from "sweetalert2";
+
 
 @Component({
   selector: 'app-hoteles',
@@ -64,5 +66,28 @@ export class HotelesComponent implements OnInit {
       }
     )
   }
+
+  crearPDF(idHotel){
+
+    this._hotelesService.crearPDF(idHotel,this.token).subscribe(
+      response =>{
+        console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: 'PDF Creado',
+        })        
+      },
+      error =>{
+        console.log(<any>error);
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo crear el PDF',
+        })
+        
+      }
+    )
+
+  }
+
 }
 

@@ -2,8 +2,10 @@
 
 const Hotel = require('../models/hoteles.model');
 const Usuario = require('../models/usuarios.model');
+const Servicio = require('../models/servicios.model');
 const bcrypt = require("bcrypt-nodejs")
 const jwt = require("../services/jwt");
+const pdf = require('html-pdf');
 
 function registrarHotel(req,res){
 
@@ -207,10 +209,70 @@ function mostrarHotelesPopulares(req,res){
             $sort: { popularidad: -1 }
         },
         {
-            $limit: 4
+            $limit: 6
         }
     ]).exec((err, hotelesEncontrados) => {
         return res.status(200).send({ hotelesEncontrados })
+    })
+
+}
+
+function crearPDF(req,res){
+
+    var idHotel = req.params.idHotel;
+    var contenido='';
+    var guardando=[];
+
+    Hotel.findById(idHotel,(err,hotelEncontrado)=>{
+        
+        var contenidoCabezera=`<style>
+        body {
+            border-style: solid;
+            padding: 50px;
+        }
+        </style>
+        <body><h1 style="text-align: center;font-family: 'Courier New', Courier, monospace;">Hotel: ${hotelEncontrado.nombre}</h1>
+        <div style="text-align: center;">
+        <img style="border-radius: 20px;"  width="500"  src="${hotelEncontrado.imagen}">
+        </div>
+        <h1 style="text-align: center;font-family: 'Courier New', Courier, monospace;"> Descripción:</h1>
+        <h2 style="text-align: center;font-family: 'Courier New', Courier, monospace;">${hotelEncontrado.descripcion}</h2><br>
+        <h1 style="text-align: center;font-family: 'Courier New', Courier, monospace;"> Servicios:</h1>
+        <table style="margin-left: auto;margin-right: auto;
+     border-bottom: 2px black; border-collapse: collapse;font-family: 'Courier New', Courier, monospace; text-align: center;display: block;" border="1">
+        <tr style="background-color: #AED6F1;">
+            <th>ID Servicio</th>
+            <th>Nombre</th>
+            <th>Subtotal</th>
+        </tr>`;
+
+        Servicio.find({idHotel: idHotel},(err,serviciosEncontrados)=>{
+
+            for (let i = 0; i < serviciosEncontrados.length; i++) {
+                
+                guardando[i]=`<tr>
+                    <td>${serviciosEncontrados[i]._id}</td>
+                    <td>${serviciosEncontrados[i].nombre}</td>
+                    <td>${serviciosEncontrados[i].subtotal}</td>
+                </tr>`;
+                contenido+=guardando[i];
+            }
+
+            contenido=contenidoCabezera+contenido+`</table></body>`
+
+            pdf.create(contenido).toFile(`./hotel_${hotelEncontrado.nombre}.pdf`,function(err,res){
+                if(err){
+                    return console.log(err)
+                }else{
+                    return console.log(res)
+                }
+            })
+    
+            return res.status(200).send({mensaje: 'PDF CREADO!'})
+
+        })        
+
+        
     })
 
 }
@@ -225,5 +287,6 @@ module.exports={
     mostrarHotelId,
     buscarHotelesDireccionNombre,
     eliminarHotel,
-    mostrarHotelesPopulares
+    mostrarHotelesPopulares,
+    crearPDF
 }

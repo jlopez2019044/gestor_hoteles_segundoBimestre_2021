@@ -47,7 +47,8 @@ export class ServiciosHotelComponent implements OnInit {
       .subscribe(
         (response) => {
           this.hotelModel = response.hotelEncotrado;
-          console.log(response);
+          console.log(response.hotelEncontrado);
+          
         }
       );
   }

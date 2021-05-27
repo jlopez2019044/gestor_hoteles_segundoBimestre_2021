@@ -1,25 +1,44 @@
 <app-navbar></app-navbar>
 
-<div *ngFor="let hab of hotelModelGet.habitaciones" class="container m-auto p-8 text-grey-darkest">
+<div *ngFor="let hab of hotelModelGet.habitaciones" class=" mx-auto flex flex-col max-w-4xl md:h-56 bg-white rounded-lg shadow-lg overflow-hidden md:flex-row my-10">
+  <div class="md:flex items-center justify-center md:w-1/2 md:bg-gray-700">
+      <div class="py-6 px-8 md:py-0">
+          <h2 class="text-gray-700 text-2xl font-bold md:text-gray-100">Habitacion No.{{hab.no_habitacion}}</h2>
+          <p class="mt-2 text-gray-600 md:text-gray-400">{{hab.descripcion}}</p>
+          <p class="mt-2 text-gray-600 md:text-gray-400">Precio: {{hab.precio}}</p>
+      </div>
+  </div>
+  <div class="flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-700">
+      <form>
+          <div class="flex flex-col rounded-lg overflow-hidden sm:flex-row">
+              <button *ngIf="identidadParseada.rol=='ROL_USUARIO'" class="py-6 px-8 bg-gray-700 text-gray-100 text-2xl font-semibold uppercase hover:bg-gray-600" [routerLink]="['/agregarReservacion/',hab._id]" type="submit">Agregar Reservación</button>
+              <button *ngIf="identidadParseada._id==hotelModelGet.idAdminsHotel" class="py-6 px-8 bg-gray-700 text-gray-100 text-2xl font-semibold uppercase hover:bg-gray-600" [routerLink]="['/reservaciones/',hab._id]" type="submit">Visualizar Reservaciones</button>
+            </div>
+      </form>
+  </div>
+</div>
+
+<!--<div *ngFor="let hab of hotelModelGet.habitaciones" class="container m-auto p-8 text-grey-darkest">
     <div class="flex flex-wrap -mx-2">
        <div class="w-full w-1/2 px-2 mb-2">
-          <div class="rounded-t-lg h-12 text-sm text-white bg-blue-800 flex items-center justify-center">
+          <div class="rounded-t-lg h-12 text-sm bg-gray-400 flex items-center justify-center">
               <h1 class="text-xl">Habitacion No: {{hab.no_habitacion}}</h1>
           </div>
-          <div class="bg-blue-600 p-2 flex items-center justify-center text-white">
+          <div class="bg-gray-300 p-2 flex items-center justify-center">
                 <h2>Descripción: {{hab.descripcion}}</h2>
                 
           </div>
-          <div class="bg-blue-700 p-2 flex items-center justify-center text-white">
+          <div class="bg-blue-300 p-2 flex items-center justify-center">
             <div><h2>Precio: {{hab.precio}}</h2></div>
           </div>
-          <div class="bg-blue-600 rounded-b-lg p-2 flex items-center justify-center text-white">
-              <button *ngIf="identidadParseada.rol=='ROL_USUARIO'" class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" [routerLink]="['/agregarReservacion/',hab._id]" type="submit">Agregar Reservación</button>
-              <button *ngIf="identidadParseada._id==hotelModelGet.idAdminsHotel" class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" [routerLink]="['/reservaciones/',hab._id]" type="submit">Visualizar Reservaciones</button>
+          <div class="bg-gray-300 rounded-b-lg p-2 flex items-center justify-center text-white">
+              <button *ngIf="identidadParseada.rol=='ROL_USUARIO'" class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" [routerLink]="['/agregarReservacion/',hab._id]" type="submit">Agregar Reservación</button>
+              <button *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'" class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2"type="submit">Tipo de Usuario sin Acciones</button>
+              <button *ngIf="identidadParseada._id==hotelModelGet.idAdminsHotel" class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" [routerLink]="['/reservaciones/',hab._id]" type="submit">Visualizar Reservaciones</button>
           </div>
        </div>
     </div>
-</div>
+</div>-->
 
 <div *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'">
     <div class="container mx-auto mt-10">

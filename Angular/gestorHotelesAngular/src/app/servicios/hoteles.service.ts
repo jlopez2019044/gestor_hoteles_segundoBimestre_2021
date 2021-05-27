@@ -64,6 +64,14 @@ export class HotelesService {
 
   }
 
+  crearPDF(id: String, token): Observable<any> {
+
+    let headersToken = this.headersVariable.set('Authorization',token);
+
+    return this._http.get(this.url+'/hoteles/crearPDF/'+id,{headers: headersToken});
+
+  }
+
   agregarHabitacion(token, id:String, habitacion: Hotel): Observable<any>{
     
     let headersToken = this.headersVariable.set('Authorization',token);

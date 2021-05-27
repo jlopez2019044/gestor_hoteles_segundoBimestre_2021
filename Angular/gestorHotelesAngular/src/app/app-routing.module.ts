@@ -6,6 +6,7 @@ import { EditarHotelComponent } from './componentes/editar-hotel/editar-hotel.co
 import { EventosComponent } from './componentes/eventos/eventos.component';
 import { FacturaComponent } from './componentes/factura/factura.component';
 import { HabitacionesComponent } from './componentes/habitaciones/habitaciones.component';
+import { HotelesPopularesComponent } from './componentes/hoteles-populares/hoteles-populares.component';
 import { HotelesComponent } from './componentes/hoteles/hoteles.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'agregarReservacion/:idHabitacion', component: AgregarReservacionComponent},
   {path: 'editarHotel/:idHotel',component: EditarHotelComponent},
   {path: 'factura/:idReservacion', component: FacturaComponent},
+  {path: 'hotelesPopulares', component: HotelesPopularesComponent},
   {path: '**', component: LoginComponent}
 ];
 
