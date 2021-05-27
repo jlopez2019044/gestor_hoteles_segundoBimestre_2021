@@ -16,6 +16,7 @@ import Swal from "sweetalert2";
 export class AgregarReservacionComponent implements OnInit {
 
   public reservacionModel: Reservacion;
+  public reservacionModelGet: Reservacion
   public token;
   public identidadParseada;
   public idHotelRuta;
@@ -28,7 +29,6 @@ export class AgregarReservacionComponent implements OnInit {
 
       this.token = this._usuarioService.getToken();
       this.reservacionModel = new Reservacion("","","","","")
-
     }
 
   ngOnInit(): void {
@@ -36,7 +36,22 @@ export class AgregarReservacionComponent implements OnInit {
     this._activatedRoute.paramMap.subscribe((dataRuta) => {
       this.idHabitacionRuta = dataRuta.get('idHabitacion');
     })
-    console.log(this.idHabitacionRuta)
+    this.visualizarReservacionesHabitacion();    
+  }
+
+  visualizarReservacionesHabitacion(){
+    this._reservacionService.visualizarReservacionesHabitacion(this.idHabitacionRuta,this.token).subscribe(
+      response=>{
+
+        console.log(response);
+        this.reservacionModelGet = response.reservacionesEncontradas;
+
+      },
+      error =>{
+        console.log(<any>error);
+        
+      }
+    )
   }
 
   agregarReservacion(){
@@ -47,7 +62,7 @@ export class AgregarReservacionComponent implements OnInit {
           icon: 'success',
           title: 'Reservación Registrada',
         })
-
+        this.visualizarReservacionesHabitacion();    
         this._router.navigate[('/hoteles')]
 
       },

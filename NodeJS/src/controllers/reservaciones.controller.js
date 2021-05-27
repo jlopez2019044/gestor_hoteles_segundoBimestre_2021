@@ -137,8 +137,6 @@ function visualizarReservacionesHabitacion(req,res){
 
     var idHabitacion = req.params.idHabitacion;
 
-    if(req.user.rol=='ROL_ADMIN_HOTEL'){
-
         Reservacion.find({idHabitacion: idHabitacion}).populate('idUsuario','usuario').exec((err, reservacionesEncontradas)=>{
 
             if(err) return res.status(500).send({mensaje: 'Error en la petición'});
@@ -147,10 +145,6 @@ function visualizarReservacionesHabitacion(req,res){
             return res.status(200).send({reservacionesEncontradas});
     
         })    
-
-    }else{
-        return res.status(500).send({mensaje: 'No posee los permisos necesarios para realizar esta acción'});
-    }
 
 }
 
