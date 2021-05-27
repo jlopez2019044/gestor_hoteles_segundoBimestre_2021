@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 lg:w-1/2 md:w-full" *ngFor="let ser of serviciosModelGet">
+        <div class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+          <div class="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+            S
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ser.nombre}}</h2>
+            <p class="leading-relaxed text-base">ID Servicio: {{ser._id}}</p>
+            <p class="leading-relaxed text-base">Subtotal: {{ser.subtotal}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'">
+  <div class="container mx-auto mt-10">
+    <div class="p-6 border-gray-300 border-2 mx-12 rounded-lg mx-auto">
+        <p class="mb-2 text-xl text-blue-500 hover:text-blue-600">Agregar Servicio</p>
+        <form class="w-full max-w-lg mx-auto">
+            <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                  Nombre
+                </label>
+                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="nombre" #nombre="ngModel" [(ngModel)]="serviciosHotelModel.nombre" placeholder="Agregar Nombre">
+              </div>
+              <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                  subtotal
+                </label>
+                <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-last-name" type="number" name="subtotal" #subtotal="ngModel" [(ngModel)]="serviciosHotelModel.subtotal" placeholder="Agregar Subtotal">
+              </div>
+            </div>
+            <div class="flex flex-wrap mx-3 mb-2">
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                  Agregar
+                </label>
+               <button class="modal-open rounded-lg bg-green-600 p-2 text-white hover:bg-green-700" type="submit" (click)="registrarServicio()">
+                    Agregar Servicio
+                </button> 
+              </div>
+            </div>
+          </form>
+        
+    </div>  
+</div>
+</div>

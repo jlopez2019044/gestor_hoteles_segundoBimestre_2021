@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+
+<div  *ngFor="let reserv of reservacionModelGet" class="grid grid-cols-1 md:grid-cols-1 md:grid-flow-col bg-white m-5 mx-12">
+    <div class="bg-gray-200 p-5 col-span-2 md:rounded-r-lg text-center">
+      <div class="text-2xl font-semibold text-gray-700">ID de Reservación: {{reserv._id}}</div>
+      <div class="text-center mt-5 mx-5 text-gray-800 text-xl">
+    </div>
+    <div class="text-left mt-5 mx-5 text-gray-800 text-l mt-4">
+       Fecha Llegada: {{reserv.fecha_llegada}}
+       <p class="text-left">Fecha Salida: {{reserv.fecha_salida}}</p>
+    </div>
+    <div class="mt-6">
+        <button class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" type="submit" [routerLink]="['/factura',reserv._id]">Visualizar Factura</button>
+        <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" (click)="eliminarReservacion(reserv._id)" type="submit">Eliminar Reservación</button>
+    </div>  
+</div>

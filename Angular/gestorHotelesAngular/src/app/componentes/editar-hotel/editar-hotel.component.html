@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+<div class=" py-4 text-left px-6">
+    <div class="container mx-auto">
+      <div class="p-6 border-gray-300 border-2 mx-12 rounded-lg mx-auto">
+          <p class="mb-2">Editar Hotel</p>
+          <form class="w-full max-w-lg mx-auto">
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                    Nombre
+                  </label>
+                  <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-first-name" type="text" name="nombre" #nombre="ngModel" [(ngModel)]="hotelModel.nombre" placeholder="Editar Nombre">
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                    Dirección
+                  </label>
+                  <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-last-name" type="text" name="direccion" #direccion="ngModel" [(ngModel)]="hotelModel.direccion" placeholder="Editar Dirección">
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                    Descripción
+                  </label>
+                  <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-password" type="text" name="descripcion" #descripcion="ngModel" [(ngModel)]="hotelModel.descripcion"placeholder="Editar Descripción">
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                    Imágen
+                  </label>
+                  <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" id="grid-password" type="text" name="imagen" #imagen="ngModel" [(ngModel)]="hotelModel.imagen" placeholder="Editar Imágen">
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Editar
+                  </label>
+                  <button class="rounded-lg bg-green-600 p-2 text-white hover:bg-green-700" (click)="editarHotel()" type="submit">
+                      Guardar Cambios
+                  </button>
+                </div>
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                    Eliminar
+                  </label>
+                  <button routerLink="/hoteles" class="rounded-lg bg-red-500 p-2 text-white hover:bg-red-600" type="submit" (click)="eliminarHotel()">
+                      Eliminar Hotel
+                  </button>
+                </div>
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                    Cancelar
+                  </label>
+                  <button routerLink="/hoteles" class="rounded-lg bg-gray-300 p-2 text-black hover:bg-gray-400">
+                      Cancelar Cambios
+                  </button>
+                </div>
+              </div>
+            </form>
+    </div>
+    
+  </div>
+</div>

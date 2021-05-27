@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'">
+  <button  class=" m-4 mx-16 bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" routerLink="/hotelesPopulares">Ver Esadísticas de los Hoteles</button>
+</div>
+
+<div  *ngFor="let hotels of hotelModelGet" class="grid grid-cols-1 md:grid-cols-3 md:grid-flow-col bg-white m-5 mx-12">
+    <div class="p-5 bg-blue-100 md:rounded-l-lg">
+      <img *ngIf="hotels.imagen" [src]="hotels.imagen" class="object-center rounded-full"><img *ngIf="!hotels.imagen" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder-1024x512.png" class="object-center rounded-full">
+    </div>
+    <div class="bg-gray-200 p-5 col-span-2 md:rounded-r-lg text-center">
+      <div class="text-2xl font-semibold text-gray-700">Hotel: {{hotels.nombre}}</div>
+      <div class="text-center mt-5 mx-5 text-gray-800 text-xl">
+       {{hotels.descripcion}}
+    </div>
+    <div class="text-left mt-5 mx-5 text-gray-800 text-l mt-4">
+        Dirección: {{hotels.direccion}}
+    </div>
+    <div class="mt-6">
+        <button *ngIf="identidadParseada.rol=='ROL_ADMIN_APP'" class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" [routerLink]="['/editarHotel', hotels._id]" (click)="obtenerHotelId(hotels._id)">Editar Hotel</button>
+        <button *ngIf="identidadParseada._id==hotels.idAdminsHotel" class="bg-green-500 p-2 text-white rounded-lg hover:bg-green-600 mx-2" [routerLink]="['/editarHotel', hotels._id]">Editar Hotel</button>
+        <button class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" [routerLink]="['/serviciosHotel', hotels._id]">Ver Servicios</button>
+        <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" [routerLink]="['/eventos',hotels._id]">Ver Eventos</button>
+        <button class="bg-blue-300 p-2 text-white rounded-lg hover:bg-blue-400 mx-2" [routerLink]="['/habitaciones',hotels._id]">Ver Habitaciones</button>
+        <button class="bg-purple-600 p-2 text-white rounded-lg hover:bg-purple-700 mx-2" (click)="crearPDF(hotels._id)">Crear PDF</button>
+    </div>  
+  </div>
+
+<!--<div *ngFor="let hotels of hotelModelGet" class="container m-auto p-8 text-grey-darkest">
+    <div class="flex flex-wrap -mx-2">
+       <div class="w-full w-1/2 px-2 mb-2">
+          <div class="rounded-t-lg h-12 text-sm text-white bg-blue-800 flex items-center justify-center">
+              <h1 class="text-xl">{{hotels.nombre}}</h1>
+          </div>
+          <div class="bg-blue-600 p-2 flex items-center justify-center text-white">
+                <h2>Descripción: {{hotels.descripcion}}</h2>
+                
+          </div>
+          <div class="bg-blue-700 p-2 flex items-center justify-center text-white">
+            <div><h2>Dirección: {{hotels.direccion}}</h2></div>
+          </div>
+          <div class="bg-blue-600 rounded-b-lg p-2 flex items-center justify-center text-white">
+              <button class="bg-yellow-500 p-2 text-white rounded-lg hover:bg-yellow-600 mx-2" [routerLink]="['/serviciosHotel', hotels._id]">Ver Servicios</button>
+              <button class="bg-red-500 p-2 text-white rounded-lg hover:bg-red-600 mx-2" [routerLink]="['/eventos',hotels._id]">Ver Eventos</button>
+              <button class="bg-blue-300 p-2 text-white rounded-lg hover:bg-blue-400 mx-2" [routerLink]="['/habitaciones',hotels._id]">Ver Habitaciones</button>
+          </div>
+       </div>
+    </div>
+ 
+ </div>-->

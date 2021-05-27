@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+<!--<div class="table w-full p-2">
+    <table class="w-full border">
+        <thead>
+            <tr class="bg-gray-50 border-b">
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    ID
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Imagen
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Nombre
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Apellido
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Usuario
+                    </div>
+                </th>
+                <th class="p-2 border-r cursor-pointer text-sm text-gray-500">
+                    <div class="flex items-center justify-center">
+                        Rol
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-gray-100 text-center border-b text-sm text-gray-600" *ngFor="let usua of usuarios">
+                <td class="p-2 border-r">{{usua._id}}</td>
+                <td class="p-2 border-r "><div class="flex justify-center">
+                    <img class="rounded-lg h-6 w-6" *ngIf ="usua.imagen" [src]="usua.imagen"> <img class="rounded-lg h-6 w-6" *ngIf ="!usua.imagen" src="https://image.flaticon.com/icons/png/512/44/44948.png">
+                </div></td>
+                <td class="p-2 border-r">{{usua.nombre}}</td>
+                <td class="p-2 border-r">{{usua.apellido}}</td>
+                <td class="p-2 border-r">{{usua.usuario}}</td>
+                <td class="p-2 border-r">{{usua.rol}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>-->
+
+<div class="flex items-center px-4">
+    <div class='overflow-x-auto w-full'>
+
+        <!-- Table -->
+        <table class='mx-auto w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
+            <thead class="bg-gray-50">
+                <tr class="text-gray-600 text-left">
+                    <th class="font-semibold text-sm uppercase px-6 py-4">
+                        USUARIO
+                    </th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">
+                        NOMBRE Y APELLIDO
+                    </th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4 text-center">
+                        ROL
+                    </th>
+                    <th class="font-semibold text-sm uppercase px-6 py-4">
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                <tr *ngFor="let usua of usuarios">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="inline-flex w-10 h-10">
+                                <img *ngIf="usua.imagen" class='w-10 h-10 object-cover rounded-full' [src]="usua.imagen"><img *ngIf="!usua.imagen" class='w-10 h-10 object-cover rounded-full' src="https://image.flaticon.com/icons/png/512/44/44948.png">
+                            </div>
+                            <div>
+                                <p>
+                                    {{usua.nombre}}
+                                </p>
+                                <p class="text-gray-500 text-sm font-semibold tracking-wide">
+                                    {{usua.usuario}}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <p class="">
+                            {{usua.nombre}}
+                        </p>
+                        <p class="text-gray-500 text-sm font-semibold tracking-wide">
+                            {{usua.apellido}}
+                        </p>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="text-green-800 bg-green-200 font-semibold px-2 rounded-full">
+                            {{usua.rol}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<button class="rounded-lg bg-blue-500 hover:bg-blue-600 text-white p-2 mx-10 my-6" routerLink="/registrarAdminHotel">Crear Administrador Hotel</button>
+
