@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/gestorHotelesJoseLopez',{useNewUrlPa
 
     usuario.usuarioDefault();
 
-    app.listen(3000,function(){
+    app.listen(process.env.PORT,function(){
         console.log("El servidor está arrancando en el puerto 3000");
     });
 
